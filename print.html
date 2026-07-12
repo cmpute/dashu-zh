@@ -1,0 +1,1594 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Dashu 用户指南</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="dashu 任意精度数值库的用户指南">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-0392ca55.css">
+        <link rel="stylesheet" href="css/chrome-fc474251.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-75fbb288.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-cf5e5045.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Dashu 用户指南</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/cmpute/dashu" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<p align="center">
+  <img src="assets/dashu-banner.png" alt="dashu">
+</p>
+
+<h1 id="dashu-用户指南"><a class="header" href="#dashu-用户指南"><code>dashu</code> 用户指南</a></h1>
+<p><a href="https://zyxin.xyz/dashu/">English</a> | <a href="https://zyxin.xyz/dashu-zh/">简体中文</a></p>
+<p>欢迎来到 <code>dashu</code> 用户指南！<code>dashu</code> 是一套用 Rust 实现的任意精度数值（即大数）库。</p>
+<p>本指南是 <a href="https://docs.rs/dashu/latest/dashu/"><code>dashu</code> API 文档</a>的配套读物，以更精炼的方式概述 <code>dashu</code> 提供的全部功能，并附有示例。</p>
+<p>请从左侧的章节列表中选择，跳转到各个主题。</p>
+<h2 id="设计理念与特性"><a class="header" href="#设计理念与特性">设计理念与特性</a></h2>
+<p><code>dashu</code> 希望成为你在以下场景中的首选库：编写涉及任意精度数值的算法，或者构建依赖任意精度数值的 Rust 工具。它完全用 Rust 从头构建，提供友好且符合 Rust 惯例的 API。对于高精度的计算负载，它也许不是最快的库，但它的设计目标是让你在绝大多数情况下几乎察觉不到它的存在。</p>
+<p>为了让每位 Rust 开发者都能用上它，它具有以下特性：</p>
+<ul>
+<li>纯 Rust 实现，完整支持 <code>no_std</code>。</li>
+<li>优先关注易用性与可读性，其次才是运行效率。</li>
+<li>当前 MSRV 为 1.68。</li>
+</ul>
+<h2 id="元-crate"><a class="header" href="#元-crate">元 crate</a></h2>
+<p><code>dashu</code> 是一个元 crate（meta crate），对外暴露所有子 crate（<code>dashu-base</code>、<code>dashu-int</code>、<code>dashu-float</code>、<code>dashu-ratio</code>、<code>dashu-cmplx</code> 和 <code>dashu-macros</code>）的功能。每个子 crate 在 <code>dashu</code> 中对应一个模块：<code>dashu-base</code> → <code>dashu::base</code>、<code>dashu-int</code> → <code>dashu::integer</code>、<code>dashu-float</code> → <code>dashu::float</code>、<code>dashu-ratio</code> → <code>dashu::rational</code>、<code>dashu-cmplx</code> → <code>dashu::complex</code>。它还为各类数值类型创建了更具可读性的别名：</p>
+<ul>
+<li><code>dashu::Natural</code> = <code>dashu::integer::UBig</code></li>
+<li><code>dashu::Integer</code> = <code>dashu::integer::IBig</code></li>
+<li><code>dashu::Rational</code> = <code>dashu::rational::RBig</code></li>
+<li><code>dashu::Real</code> = <code>dashu::float::FBig</code></li>
+<li><code>dashu::Decimal</code> = <code>dashu::float::DBig</code></li>
+<li><code>dashu::Complex</code> = <code>dashu::complex::CBig</code></li>
+</ul>
+<p>在本指南中，我们使用这些数值类型的原始名称（即 <code>XBig</code>），但相关说明同样适用于上述重导出的别名类型。</p>
+<h2 id="cargo-特性"><a class="header" href="#cargo-特性">Cargo 特性</a></h2>
+<p>Dashu 为 cargo 定义了若干可选特性（feature），用于支持各种第三方 crate。其中大多数默认未启用。特别地，我们对这些特性采用了一套特殊的命名规则：</p>
+<ul>
+<li>对于已发布稳定版本（达到 v1.0）的依赖，我们使用 <code>xxx_vyy</code> 表示其各个主版本，并用 <code>xxx</code> 指向其中某一个主版本。更改 <code>xxx</code> 所指向的版本在 <code>dashu</code> 中视为破坏性变更（需要提升主版本号）。因此，当你启用这些稳定特性来依赖 <code>dashu</code> 时，<code>dashu</code> 后续为更新版本新增的实现不会影响你的代码。</li>
+<li>对于仅有不稳定版本（v1.0 之前）的依赖，我们始终使用 <code>xxx_vyy</code> 表示每个主版本，同时提供 <code>xxx</code> 特性作为<strong>最新</strong>版本的别名。因此，当你启用这些不稳定特性来依赖 <code>dashu</code> 时，这些依赖的升级可能导致你的代码编译失败。但我们仍不将其视为破坏性变更，因为不稳定的依赖默认不会被启用。如果你想避免由此引发的破坏性变更，请显式指定所使用的版本。</li>
+</ul>
+<p><strong>示例</strong>：在 <code>dashu-float</code> 中，对 diesel 库 v1 的支持放在名为 <code>diesel</code> 的特性下，对 v2 的支持放在名为 <code>diesel2</code> 的特性下。另一方面，<code>rand</code> crate 尚未发布稳定版，即便它已被广泛使用。因此，对 <code>rand</code> v0.7 和 v0.8 的支持分别放在名为 <code>rand_v07</code> 和 <code>rand_v08</code> 的特性下，而特性名 <code>rand</code> 当前指向 <code>rand_v08</code>。</p>
+<p>在你的 Cargo.toml 中，如果你启用的是 <code>dashu/diesel</code>、<code>dashu/diesel2</code> 或 <code>dashu/rand_v07</code>，那么将来 <code>dashu</code> 新增对 diesel v3 或 rand v0.9 的支持时，也不会带来任何破坏性变更的风险。但如果你启用的是 <code>rand</code> 而非 <code>rand_v08</code>，则存在风险，因为将来 <code>rand</code> 可能会指向 <code>rand_v09</code>。</p>
+<h2 id="许可证"><a class="header" href="#许可证">许可证</a></h2>
+<p>根据以下任一协议授权，由你自行选择：<a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a> 或 <a href="https://opensource.org/licenses/MIT">MIT license</a>。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="数值类型-1"><a href="#数值类型-1" class="header">数值类型</a></h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h2 id="数值类型"><a class="header" href="#数值类型">数值类型</a></h2>
+<p>在 <code>dashu</code> 的各个 crate 中，每种任意精度数值都有独立的类型，具体如下：</p>
+<ul>
+<li><code>dashu::integer::UBig</code>（别名 <code>dashu::Natural</code>）表示无符号整数（即自然数）。</li>
+<li><code>dashu::integer::IBig</code>（别名 <code>dashu::Integer</code>）表示（带符号）整数。</li>
+<li><code>dashu::float::FBig</code>（别名 <code>dashu::Real</code>）表示以浮点形式表示的实数（<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord">significand</span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8779em;"></span><span class="mord"><span class="mord text"><span class="mord">base</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8779em;"><span style="top:-3.1473em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">exponent</span></span></span></span></span></span></span></span></span></span></span></span></span>）。</li>
+<li><code>dashu::float::DBig</code>（别名 <code>dashu::Decimal</code>）是 <code>FBig</code> 在 <code>base = 10</code> 时的特化版本。</li>
+<li><code>dashu::rational::RBig</code>（别名 <code>dashu::Rational</code>）表示有理数。它有一个变体 <code>dashu::rational::Relaxed</code>，同样表示有理数，但不强制要求该数值处于规范化形式。</li>
+<li><code>dashu::complex::CBig</code>（别名 <code>dashu::Complex</code>）表示复数，由两个共享同一精度和舍入模式的 <code>FBig</code> 部分组 pair 构成。</li>
+</ul>
+<p>这些数值类型都实现了通用运算，具体用法请参阅其他章节或 API 文档。</p>
+<h3 id="word"><a class="header" href="#word">Word</a></h3>
+<p><code>dashu::integer::Word</code> 是一个表示原生机器字（native machine word）的无符号整数。<code>Word</code> 的大小通常取决于平台，例如在 32 位平台上 <code>Word</code> 为 <code>u32</code>。不过，这一行为可以通过设置 <code>force_bits</code> 配置标志来覆盖（例如在环境变量 <code>RUSTFLAGS</code> 中加入 <code>--cfg force_bits="32"</code>）。由于该类型在不同平台上并不一致，编写可移植程序时请谨慎使用。</p>
+<p>此外，还有另一个类型 <code>DoubleWord</code>，表示大小为 <code>Word</code> 两倍的整数类型。它是能在不进行堆分配的情况下放入一个 <code>UBig</code> 实例的最大整数类型，也参与某些 const 构造函数。</p>
+<h3 id="sign"><a class="header" href="#sign">Sign</a></h3>
+<p><code>dashu::base::Sign</code> 是一个<strong>二值</strong>枚举，用于表示数值的符号。出于效率与清晰性的考虑，数值零会被归类为 <code>Sign::Positive</code>，尽管它在数学上是无符号的。（设想一下，如果用三值格式来存储符号，每个数值实例都要额外占用一位来保存符号，并且在运算时还要增加额外的分支。）若要获得三值表示，推荐使用各数值类型上的 <code>.signum()</code> 方法。</p>
+<p>该枚举还提供了一些与符号相关的便捷工具。例如，你可以通过 <code>dashu::base::Signed</code> trait 获取任意基本类型数值或大数的符号，也可以将一个符号与另一个符号相乘。你甚至可以将符号与 <code>core::cmp::Ordering</code> 相乘，当你想根据操作数的符号来翻转比较结果时这会非常方便；<code>dashu</code> 的比较实现中就大量使用了这一技巧。</p>
+<h3 id="ubig-的内存布局"><a class="header" href="#ubig-的内存布局"><code>UBig</code> 的内存布局</a></h3>
+<p><code>dashu</code> 库中最基础的类型是自然数 <code>UBig</code>。一个 <code>UBig</code> 数值的底层表示是一个由 <code>Word</code> 组成的数组。<code>dashu</code> 的特别之处在于：当一个 <code>UBig</code> 只包含一两个 word 时，这些 word 会被内联存储，不会发生堆分配。此外，内联存储的 <code>UBig</code> 通常只占用 3 个 word 的栈空间（如有兴趣可查看源码了解细节）。得益于 <code>dashu</code> 特有的内存优化，<code>Option&lt;UBig&gt;</code> 乃至 <code>Option&lt;IBig&gt;</code> 也都只占用 3 个 word。</p>
+<blockquote>
+<p>目前 <code>UBig</code> 实例的内存布局尚未最终确定，因此暂时不要依赖它。此外，不同版本之间不保证内存布局的兼容性。内存布局很可能要到 <code>v1.0.0</code> 版本才会稳定下来。</p>
+</blockquote>
+<h3 id="fbig-的内存布局"><a class="header" href="#fbig-的内存布局"><code>FBig</code> 的内存布局</a></h3>
+<p><code>FBig</code>（以及 <code>DBig</code>）的布局与其他类型略有不同。一个 <code>FBig</code> 实例包含数值表示 <code>dashu::float::Repr</code> 和上下文 <code>dashu::float::Context</code> 两部分。每当基于某个 <code>FBig</code> 创建新的 <code>FBig</code> 时，上下文都会被复制。上下文目前保存着与该数值相关的舍入信息和精度。上下文被刻意保持得很轻量（<code>Copy</code> + <code>Send</code> + <code>Sync</code>）：数学常数（如 π、ln2、ln10）的共享缓存位于上下文<em>之外</em>，存放在独立的 <a href="#fbigcbig-的缓存算术"><code>CachedFBig</code></a> 包装类型中，这样普通的 <code>FBig</code> 才能保持低成本的拷贝，并可在 <code>const</code>/<code>static</code> 上下文中使用。因此，如果你不想存储这些额外的上下文信息，可以直接只存储 <code>FBig</code> 的 <code>Repr</code> 部分。对 <code>Repr</code> 的后续运算可以通过 <code>Context</code> 的关联方法来调用，这些方法都接受某个 <code>Repr</code> 实例的引用。不过，在某些情况下这可能会带来少许开销。</p>
+<h3 id="cbig-的内存布局"><a class="header" href="#cbig-的内存布局"><code>CBig</code> 的内存布局</a></h3>
+<p><code>CBig</code>（位于 <code>dashu-cmplx</code> crate 中）镜像了 <code>FBig</code> 的 <code>Repr</code>+<code>Context</code> 布局，并将其推广到两个部分：一个 <code>CBig&lt;R, B&gt;</code> 实例持有两个 <code>Repr&lt;B&gt;</code> 部分——实部 <code>re</code> 和虚部 <code>im</code>——它们共享<strong>同一个</strong> <code>Context&lt;R&gt;</code>。只存一个上下文（而不是包装两个各自携带上下文的 <code>FBig</code>），使得“精度一致”这一不变量成为<em>物理层面</em>的保证：精度槽只有一个，<code>re</code> 和 <code>im</code> 在结构上就不可能不一致。每个部分各自保存自己的尾数长度；共享的上下文只保存精度上限和唯一的舍入模式，并独立地作用于每个部分。与 <code>FBig</code> 一样，上下文是 <code>Copy</code> 的，而尾数在堆上分配，因此 <code>CBig</code> 是 <code>Clone</code> 但不是 <code>Copy</code>。</p>
+<p>由于两个部分都是 <code>Repr</code>，<code>CBig</code> 原封不动地复用了 <code>dashu-float</code> 的有符号零 / 有符号无穷 / 支割线（branch cut）机制。它遵循 C99 Annex G / Kahan 模型（参见<a href="#标准合规性">标准合规性</a>），并且与 <code>FBig</code> 一样<strong>没有 NaN</strong>——C99 中那些会产生复数 NaN 的情形，在上下文层会以 <code>FpError</code> 的形式上报。<code>CBig::from_parts(re, im)</code> 会取两个操作数上下文中较大的那个。构造、运算、超越函数和 I/O 的相关内容，分别在<a href="#构造与析构">构造与析构</a>、<a href="#类型转换">类型转换</a>和<a href="#运算-1">运算</a>中介绍。</p>
+<h2 id="辅助类型"><a class="header" href="#辅助类型">辅助类型</a></h2>
+<p>除了数值类型之外，各 crate 中还用到几种辅助类型：<strong>dashu-base</strong> 中的 <code>Sign</code> 和 <code>Approximation</code>，<strong>dashu-float</strong> 中的 <code>ConstCache</code> 和 <code>FpResult</code>，以及 <strong>dashu-cmplx</strong> 中的 <code>CfpResult</code>。</p>
+<h3 id="sign-1"><a class="header" href="#sign-1">Sign</a></h3>
+<p>在 <code>dashu</code> 中，数值的符号用枚举 <code>dashu::base::Sign</code> 表示。它只有两个变体：<code>Positive</code> 和 <code>Negative</code>。零被视为 <code>Positive</code>。<code>Sign</code> 可以由布尔值通过 <code>::from()</code> 转换而来，其中 <code>true</code> 映射为 <code>Negative</code>。</p>
+<p>要获取一个数值的符号，数值类型上通常会有 <code>.sign()</code> 方法。对于基本整数，可以通过 <code>dashu::base::Signed</code> trait 获取符号。</p>
+<p><code>Sign</code> 类型还支持一些运算，即 <code>Neg</code> 和 <code>Mul</code>。可以用 <code>Neg</code> 翻转符号，也可以将它与另一个 <code>Sign</code> 或其他数值类型相乘，作用于后者的符号。</p>
+<h3 id="approximation"><a class="header" href="#approximation">Approximation</a></h3>
+<p><code>Approximation</code> 枚举是 <code>dashu</code> 中另一个常用类型。它用于运算可能返回不精确结果的情形（如舍入和数值转换）。该枚举有两个变体：<code>Exact</code> 和 <code>Inexact</code>，后者带有一个误差项，用于表示不精确运算所引入误差的符号或大小。</p>
+<p>当你持有一个 <code>Approximation</code> 实例时，可以调用 <code>.value()</code>、<code>.value_ref()</code> 或 <code>unwrap()</code> 来获取运算结果，调用 <code>.error()</code> 来获取误差项。该结构体还支持函数式编程风格的方法，例如 <code>.map()</code> 和 <code>.and_then()</code>。</p>
+<h3 id="constcache"><a class="header" href="#constcache">ConstCache</a></h3>
+<p><code>dashu::float::ConstCache</code> 保存了数学常数 π、ln2 和 ln10 的精确二分裂（binary-splitting）状态，因此在不断提高精度的情况下重复调用超越函数时，可以<em>扩展</em>此前的工作，而不是从头重新计算。它是一个由大整数组成的普通结构体——与基数无关、<code>Send</code> + <code>Sync</code>——单个缓存即可服务于任意基数。<code>FBig</code> 和 <code>Context</code> 本身保持 <code>Copy</code> 且不携带任何缓存；该状态存放在独立的 <a href="#fbigcbig-的缓存算术"><code>CachedFBig</code></a> 包装类型中（作为 <code>Rc&lt;RefCell&lt;ConstCache&gt;&gt;</code>），你也可以直接驱动一个裸的 <code>ConstCache</code>。</p>
+<h3 id="fpresult-和-cfpresult"><a class="header" href="#fpresult-和-cfpresult">FpResult 和 CfpResult</a></h3>
+<p>上下文层的不精确运算返回的是一个结果类型，而非裸值：<code>dashu::float::FpResult&lt;T&gt; = Result&lt;Rounded&lt;T&gt;, FpError&gt;</code>，其中 <code>Rounded&lt;T&gt;</code> 是携带 <code>Rounding</code> 标志的 <a href="#approximation"><code>Approximation</code></a>。复数的对应类型是 <code>dashu::complex::CfpResult</code>（<code>Result&lt;CRounded&lt;CBig&gt;, FpError&gt;</code>），其 <code>CRounded</code> 为每个坐标轴各携带一个 <code>Rounding</code> 标志。<code>FpError</code> 用于报告运算为何无法产生一个有限的、正确舍入的值：<code>Overflow</code>/<code>Underflow</code>、<code>Indeterminate</code>（例如 <code>0/0</code>）、<code>OutOfDomain</code> 以及 <code>InfiniteInput</code>。</p>
+<h2 id="两层-api"><a class="header" href="#两层-api">两层 API</a></h2>
+<p>不精确运算——除法、超越函数，以及任何可能上溢、下溢或超出定义域的运算——都以两层形式提供：</p>
+<ul>
+<li><strong>上下文层（Context layer）</strong>——<code>Context</code> 的方法接受 <code>&amp;Repr</code>，返回 <a href="#fpresult-和-cfpresult"><code>FpResult</code></a><code>&lt;Rounded&lt;FBig&gt;&gt;</code>（复数情形为 <code>CfpResult&lt;CRounded&lt;CBig&gt;&gt;</code>）：一个正确舍入的结果或一个 <code>FpError</code>，并携带舍入方向。它们接受可选的 <code>&amp;mut ConstCache</code>，以便复用常数。</li>
+<li><strong>便捷层（Convenience layer）</strong>——<code>FBig</code>/<code>CBig</code> 上的固有方法和运算符（<code>.exp()</code>、<code>.ln()</code>、<code>+</code>、<code>*</code>……）会解包为裸值：遇到 <code>Indeterminate</code>/<code>OutOfDomain</code>/<code>InfiniteInput</code> 时 panic，遇到上溢/下溢则饱和为 <code>±∞</code>/<code>±0</code>。</li>
+</ul>
+<p>日常代码请使用便捷层；当你需要舍入方向或显式的错误处理时，再下沉到上下文层。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="构造与析构"><a href="#构造与析构" class="header">构造与析构</a></h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<p>有多种方式可以构造和析构这些数值类型，具体如下所示。这些构造函数用于直接从数值的组成部分来构建数值。若要从其他表示形式构造，请参阅<a href="#输入与输出">输入与输出</a>和<a href="#类型转换">类型转换</a>章节。</p>
+<h2 id="常量"><a class="header" href="#常量">常量</a></h2>
+<p>所有数值类型都提供了若干与之关联的常量。你可以用它们来构造实例，也可以直接与二元运算符搭配使用。这些常量包括：</p>
+<ul>
+<li><code>UBig</code>：<code>::ZERO</code>、<code>::ONE</code></li>
+<li><code>IBig</code>：<code>::ZERO</code>、<code>::ONE</code>、<code>::NEG_ONE</code></li>
+<li><code>FBig</code>/<code>DBig</code>：<code>::ZERO</code>、<code>::ONE</code>、<code>::NEG_ONE</code>、<code>::INFINITY</code>、<code>::NEG_INFINITY</code></li>
+<li><code>RBig</code>：<code>::ZERO</code>、<code>::ONE</code>、<code>::NEG_ONE</code></li>
+<li><code>CBig</code>：<code>::ZERO</code>（<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord">0</span><span class="mord mathnormal">i</span></span></span></span>）、<code>::ONE</code>（<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord">0</span><span class="mord mathnormal">i</span></span></span></span>）、<code>::NEG_ONE</code>（<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord">0</span><span class="mord mathnormal">i</span></span></span></span>）、<code>::I</code>（<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord">1</span><span class="mord mathnormal">i</span></span></span></span>）</li>
+</ul>
+<h2 id="ubig-的原始构造函数"><a class="header" href="#ubig-的原始构造函数"><code>UBig</code> 的原始构造函数</a></h2>
+<p>对于 <code>UBig</code>，可以通过 <code>::from_words()</code> 方法从 <a href="#word"><code>Word</code></a> 切片来构造。word 必须按小端序排列，即第一个 word 表示数值的最低有效部分。如果要构造的整数较小，也可以使用 <code>::from_word()</code> 和 <code>::from_dword()</code> 方法，它们可以在 <code>const</code> 上下文中调用。</p>
+<p>要析构一个 <code>UBig</code>，目前我们暂不支持获取 <code>UBig</code> 中存储的 word 的所有权。你只能通过 <code>.as_words()</code> 方法获取对这些 word 的引用。未来当 <code>UBig</code> 的内存布局稳定后，可能会添加一个将 word 所有权交出的析构函数，以避免不必要的复制。</p>
+<h2 id="从组成部分构造"><a class="header" href="#从组成部分构造">从组成部分构造</a></h2>
+<p>其他数值类型通常由多个部分组成。你可以使用 <code>::from_parts()</code> 和 <code>::from_parts_const()</code> 方法来构造它们。后者可以在 <code>const</code> 上下文中调用，但在使用 <code>::from_parts_const()</code> 时，组成部分的大小有所限制。</p>
+<p>各类型的组成部分如下：</p>
+<ul>
+<li><code>::from_parts()</code>
+<ul>
+<li><code>IBig</code> = 符号：<code>Sign</code> + 绝对值：<code>UBig</code></li>
+<li><code>FBig</code>/<code>DBig</code> = 尾数：<code>IBig</code> + 指数：<code>isize</code></li>
+<li><code>RBig</code> = 分子：<code>IBig</code> + 分母：<code>UBig</code></li>
+<li><code>CBig</code> = 实部：<code>FBig</code> + 虚部：<code>FBig</code>（结果精度取两者中的较大值）</li>
+</ul>
+</li>
+<li><code>::from_parts_const()</code>
+<ul>
+<li><code>IBig</code> = 符号：<code>Sign</code> + 绝对值：<code>DoubleWord</code></li>
+<li><code>FBig</code>/<code>DBig</code> = 符号：<code>Sign</code> + 尾数：<code>DoubleWord</code> + 指数：<code>isize</code></li>
+<li><code>RBig</code> = 符号：<code>Sign</code> + 分子：<code>DoubleWord</code> + 分母：<code>DoubleWord</code></li>
+</ul>
+</li>
+</ul>
+<p>值得注意的是，<code>FBig</code> 和 <code>DBig</code> 的构造函数还会决定结果浮点数的精度。通过 <code>::from_parts()</code> 创建的浮点数的精度等于其绝对值在给定基数下的数位位数。通过 <code>::from_parts_const()</code> 创建的浮点数的精度可以是从绝对值推断得出（与 <code>::from_parts()</code> 相同），也可以来自该方法的 <code>min_precision</code> 参数。</p>
+<p>要析构这些数值类型，请使用 <code>::into_parts()</code> 函数来无复制地获取各组成部分。但对于 <code>FBig</code>/<code>DBig</code>，你应该先使用 <code>.into_repr()</code> 获取底层表示 <code>Repr</code>，然后再使用 <code>Repr</code> 的 <code>.into_parts()</code> 方法来获取绝对值和尾数。</p>
+<h2 id="dashu-macros"><a class="header" href="#dashu-macros"><code>dashu-macros</code></a></h2>
+<p>我们还提供了通过宏 <code>ubig!</code>/<code>ibig!</code>/<code>fbig!</code>/<code>dbig!</code>/<code>rbig!</code>/<code>cbig!</code> 从字面量创建大数的便捷且高效的方式。这些宏可以直接从 <code>dashu-macros</code> crate 或 <code>dashu</code> 元 crate 获取。<code>cbig!</code> 宏接受与 <code>CBig</code> 的 <code>FromStr</code> 相同的代数形式（例如 <code>cbig!(3+4i)</code>、<code>cbig!(-i)</code>）或 <code>re, im</code> 对（例如 <code>cbig!(3, 4)</code>）。</p>
+<p>你可以直接将数字字面量作为参数而无需加引号（例如 <code>dbig!(3.1415926535897932384626)</code>），并且无需担心精度丢失，因为它保证能够无近似地精确创建数值。此外，这些宏的运行时开销极小，因为数值在编译期就已由宏预处理完毕。</p>
+<p>当数值精度不高时，这些宏可以在 <code>const</code> 环境中使用，不过这一能力取决于精度和机器字大小。要创建大型常量，可以使用该 crate 中的 <code>static_*</code> 宏（如 <code>static_ubig!</code>）。它们的语法与普通宏相同，不同之处在于宏的输出是静态实例的引用，而非直接生成实例。这些用于静态创建的宏还有其他一些限制。</p>
+<p>有关这些宏的详细用法，请参阅 <a href="https://docs.rs/dashu-macros/latest/dashu_macros/"><code>dashu-macros</code> 的文档</a>。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="fbigcbig-的缓存算术"><a href="#fbigcbig-的缓存算术" class="header">FBig/CBig 的缓存算术</a></h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<p>[<code>CachedFBig</code>] 类型是携带一个共享 <code>Rc&lt;RefCell&lt;ConstCache&gt;&gt;</code> 句柄的 [<code>FBig</code>]。该缓存保存了数学常数（π、ln2、ln10）的精确二分裂状态，因此超越函数（<code>ln</code>、<code>exp</code>、<code>sin</code>、<code>cos</code>、……、<code>pi</code>）会复用并逐步扩展此前的工作，而非从头重新计算。</p>
+<h2 id="创建"><a class="header" href="#创建">创建</a></h2>
+<p><code>CachedFBig</code> 通过将缓存句柄附加到 <code>FBig</code> 上来创建：</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::rc::Rc;
+use core::cell::RefCell;
+use dashu::float::{CachedFBig, ConstCache, FBig, Repr, Context};
+
+let cache = Rc::new(RefCell::new(ConstCache::new()));
+
+// 从 FBig 创建
+let a = FBig::ONE.into_cached(cache.clone());
+
+// 从原始组成部分配合新缓存创建
+let b = CachedFBig::&lt;_, 10&gt;::with_cache(
+    Repr::new(1234.into(), -3),
+    Context::new(50),
+);
+<span class="boring">}</span></code></pre>
+<p>使用 <code>From&lt;FBig&gt; for CachedFBig</code> 进行一次性转换（它会创建一个新的空缓存）：</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let c: CachedFBig = FBig::from(3u8).into();
+<span class="boring">}</span></code></pre>
+<p>要丢弃缓存并恢复为普通 <code>FBig</code>，使用 <code>into_fbig()</code> 或 <code>From&lt;CachedFBig&gt; for FBig</code> trait：</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let plain: FBig = cached.into();  // 或 cached.into_fbig()
+<span class="boring">}</span></code></pre>
+<h2 id="缓存共享"><a class="header" href="#缓存共享">缓存共享</a></h2>
+<p><code>CachedFBig</code> 值之间的二元运算会在结果中保留缓存句柄：<code>(a + b).ln().exp()</code> 会全程扩展同一个缓存。当两个操作数携带不同的缓存句柄时，<strong>左侧</strong>的缓存将被保留。对于 <code>FBig op CachedFBig</code>，无论 <code>CachedFBig</code> 操作数在哪一侧，其缓存都会被保留。</p>
+<p>与普通 <code>FBig</code> 和基本类型（<code>u8</code>、<code>i32</code>、<code>UBig</code> 等）的运算同样有效，并会保留 <code>CachedFBig</code> 操作数的缓存：</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let cached = CachedFBig::&lt;_, 10&gt;::with_cache(
+    Repr::new(2.into(), 0), Context::new(20),
+);
+let result = cached + 3u8;    // CachedFBig，缓存已保留
+let result = 10i32 * cached;  // CachedFBig，缓存已保留
+<span class="boring">}</span></code></pre>
+<h2 id="检查与清空缓存"><a class="header" href="#检查与清空缓存">检查与清空缓存</a></h2>
+<p>使用 <code>cache()</code> 以只读方式借用缓存并检查其大小：</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let terms = cached.cache().total_terms();
+let words = cached.cache().total_words();
+<span class="boring">}</span></code></pre>
+<p>调用 <code>clear_cache()</code> 释放所有缓存的大整数内存。下一次超越函数运算将从头重新计算常数：</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>cached.clear_cache();
+assert_eq!(cached.cache().total_terms(), 0);
+<span class="boring">}</span></code></pre>
+<h2 id="更多构造函数与访问器"><a class="header" href="#更多构造函数与访问器">更多构造函数与访问器</a></h2>
+<p>除了 <code>into_cached</code> / <code>with_cache</code> / <code>From&lt;FBig&gt;</code> 之外，<code>CachedFBig</code> 还镜像了 <code>FBig</code> 其余的构造 API，同时保留缓存句柄：</p>
+<ul>
+<li><code>from_parts(significand, exponent)</code> —— 从尾数和指数构建，使用新缓存。</li>
+<li><code>with_rounding::&lt;NewR&gt;()</code> —— 更改舍入模式，保留缓存句柄。</li>
+<li><code>as_fbig()</code> —— 不可变地借用内部的 <code>FBig</code>（代价低；不会脱离缓存）。</li>
+<li><code>from_repr(repr, context, cache)</code> / <code>into_repr()</code> —— 共享特定缓存句柄的原始 Repr 构造函数/析构函数。</li>
+</ul>
+<h2 id="直接计算常数"><a class="header" href="#直接计算常数">直接计算常数</a></h2>
+<p>缓存保存了常数 π、ln2 和 ln10 的精确二分裂状态，因此生成它们的方法会复用并逐步扩展此前的工作，而非从头重新计算。在 <code>CachedFBig</code> 上，π 只需一次调用：</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::rc::Rc;
+use core::cell::RefCell;
+use dashu::float::{CachedFBig, ConstCache};
+use dashu::float::round::mode::HalfAway;
+
+let cache = Rc::new(RefCell::new(ConstCache::new()));
+let _pi = CachedFBig::&lt;HalfAway, 10&gt;::pi(100, &amp;cache);
+// 后续更高精度的调用会扩展同一缓存状态，而非从头开始
+let _pi_more = CachedFBig::&lt;HalfAway, 10&gt;::pi(1000, &amp;cache);
+<span class="boring">}</span></code></pre>
+<p>你也可以直接驱动一个裸的 <code>ConstCache</code>，而无需 <code>CachedFBig</code>——当你需要常数但不需要逐值的包装类型时，这会很有用。这些方法对基数和舍入模式是泛型的，单个缓存可服务于任意基数：</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use dashu::float::ConstCache;
+use dashu::float::round::mode::HalfAway;
+
+let mut cache = ConstCache::new();
+let pi = cache.pi::&lt;10, HalfAway&gt;(100).value();       // 从头计算
+let pi_1000 = cache.pi::&lt;10, HalfAway&gt;(1000).value(); // 扩展缓存状态
+let ln2 = cache.ln2::&lt;10, HalfAway&gt;(100);
+let ln10 = cache.ln10::&lt;10, HalfAway&gt;(100);
+<span class="boring">}</span></code></pre>
+<p><code>ln_base::&lt;B, R&gt;(precision)</code> 在 <code>B</code> 为 2 或 10（或 2 的幂）时会分派到缓存的 ln2 / ln10，否则回退到直接计算 <code>ln(B)</code>。</p>
+<h2 id="线程安全性"><a class="header" href="#线程安全性">线程安全性</a></h2>
+<p><code>CachedFBig</code> 以 <code>Rc&lt;RefCell&lt;ConstCache&gt;&gt;</code> 携带其缓存，因此它是 <strong><code>!Send + !Sync</code></strong> ——缓存值不能跨线程移动。<code>FBig</code> 本身保持 <code>Copy + Send + Sync</code>（这就是 <code>static_fbig!</code> 仍然有效的原因）；只有缓存包装类型是非线程安全的。<code>ConstCache</code> 是一个由大整数组成的普通结构体，本身是 <code>Send + Sync</code>，因此要跨线程共享一个缓存，可以将 <code>ConstCache</code>（或 <code>CachedFBig</code>）包装在 <code>Arc&lt;Mutex&lt;ConstCache&gt;&gt;</code> 中。底层的 <code>Context</code> 方法无论使用何种容器都接受 <code>Option&lt;&amp;mut ConstCache&gt;</code>，因此不需要任何 API 变更。</p>
+<h2 id="示例在运算链中复用常数"><a class="header" href="#示例在运算链中复用常数">示例：在运算链中复用常数</a></h2>
+<p>由于每个生成值的运算都会保留缓存句柄，一条超越函数链会全程复用相同的常数。从同一个共享句柄构建多个结果时，每个常数只需计算一次：</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::rc::Rc;
+use core::cell::RefCell;
+use dashu::float::{CachedFBig, ConstCache, Context, Repr};
+use dashu::float::round::mode::HalfAway;
+
+type F = CachedFBig&lt;HalfAway, 10&gt;;
+let cache = Rc::new(RefCell::new(ConstCache::new()));
+
+// π 被计算并存入共享缓存……
+let _pi_50 = F::pi(50, &amp;cache);
+// ……后续更高精度的调用会扩展它，而非从头开始
+let _pi_1000 = F::pi(1000, &amp;cache);
+
+// 基于同一句柄构建的算术链会从头到尾保持该句柄
+let a = F::from_repr(Repr::new(2.into(), 0), Context::new(50), cache.clone());
+let b = F::from_repr(Repr::new(3.into(), 0), Context::new(50), cache.clone());
+let _ = (a + b).ln().exp();
+
+assert!(cache.borrow().total_terms() &gt; 0);
+<span class="boring">}</span></code></pre>
+<h2 id="复数cachedcbig"><a class="header" href="#复数cachedcbig">复数：<code>CachedCBig</code></a></h2>
+<p>复数类型 <a href="https://docs.rs/dashu-cmplx/latest/dashu_cmplx/struct.CachedCBig.html"><code>CachedCBig</code></a>
+是 <code>CachedFBig</code> 的完全镜像：它包装一个
+<a href="https://docs.rs/dashu-cmplx/latest/dashu_cmplx/struct.CBig.html"><code>CBig</code></a> 加上同一个共享的
+<code>Rc&lt;RefCell&lt;ConstCache&gt;&gt;</code> 句柄，并将其贯穿于复数超越函数（<code>ln</code>、<code>exp</code>、
+<code>sin</code>/<code>cos</code>/<code>tan</code>/<code>sin_cos</code>、<code>asin</code>/<code>acos</code>/<code>atan</code>、<code>powf</code>、<code>arg</code>）中。复数超越函数完全由实数
+<code>FBig</code> 运算构建，因此<strong>同一个 <code>ConstCache</code>（π、ln2、ln10）被原样复用</strong>——不需要存储任何复数专有的常数。</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use dashu::complex::{CBig, CachedCBig};
+use dashu::float::FBig;
+
+// 从普通 CBig 构建缓存的 1+1i（新缓存）
+let z = CachedCBig::from(CBig::from_parts(FBig::from(1), FBig::from(1)));
+
+// ln / exp 全程复用共享的实数常数缓存
+let _ = z.clone().ln().exp();
+<span class="boring">}</span></code></pre>
+<p><code>CachedCBig</code> 镜像了 <code>CBig</code> 的全部公开 API（格式化、比较、转换、包括与 <code>CBig</code> 和 <code>FBig</code> 的跨类型二元运算、<code>Neg</code>/<code>Inverse</code>、<code>Sum</code>/<code>Product</code>），并且与 <code>CachedFBig</code> 一样是 <code>!Send + !Sync</code>（因此 <code>CBig</code> 保持 <code>Send + Sync</code>，<code>static_cbig!</code> 不受影响）。一个有意的差异：<code>CachedCBig::into_parts</code> 返回的是<strong>共享句柄</strong>的 <code>(CachedFBig, CachedFBig)</code>，因此对任一部分的超越函数仍能利用缓存——区别于 <code>CBig::into_parts</code>，后者返回的是 <code>(FBig, FBig)</code>。第三方 trait（serde/num-traits/num-order/num-complex/rand）不做镜像；请通过 <code>.as_cbig()</code> 访问。</p>
+<h2 id="fast-别名"><a class="header" href="#fast-别名"><code>Fast*</code> 别名</a></h2>
+<p>对于超越函数密集的代码，元 crate 以短别名暴露了缓存变体，以便能方便地按名称使用更快的类型：</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>别名</th><th>类型</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td><a href="../index.html#fastreal"><code>FastReal</code></a></td><td><code>dashu_float::CachedFBig</code></td><td>基数 2，Zero——快速 <code>Real</code></td></tr>
+<tr><td><a href="../index.html#fastdecimal"><code>FastDecimal</code></a></td><td><code>dashu_float::CachedFBig&lt;HalfAway, 10&gt;</code></td><td>快速 <code>Decimal</code></td></tr>
+<tr><td><a href="../index.html#fastcomplex"><code>FastComplex</code></a></td><td><code>dashu_cmplx::CachedCBig</code></td><td>基数 2，Zero——快速 <code>Complex</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>三者均为 <code>!Send + !Sync</code>；非缓存的 <code>Real</code>/<code>Decimal</code>/<code>Complex</code> 仍为 <code>Send + Sync</code> 基线。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="类型转换"><a href="#类型转换" class="header">类型转换</a></h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<p>Dashu 支持完整的类型转换集，包括任意精度类型之间的转换，以及任意精度类型与基本类型之间的转换。</p>
+<p>请注意，<code>dashu</code> 中 <code>TryFrom</code> 实现的一个通用原则是：<code>TryFrom</code> 仅在转换无损失时才成功。转换过程中产生的任何精度丢失都会导致 <code>TryFrom</code> 返回 <code>Err</code>。</p>
+<h2 id="类型之间的转换"><a class="header" href="#类型之间的转换">类型之间的转换</a></h2>
+<p>大多数情况下，你可以使用 <code>From</code>/<code>Into</code>/<code>TryFrom</code>/<code>TryInto</code> 在这些类型之间进行转换。当转换可能失败时，只会实现 <code>TryFrom</code> 和 <code>TryInto</code>。下表列出了使用这些 trait 在任意精度类型之间的转换，其中列为源类型，行为目标类型。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>目标\源</th><th>UBig</th><th>IBig</th><th>FBig/DBig</th><th>RBig</th><th>CBig</th></tr>
+</thead>
+<tbody>
+<tr><td>UBig</td><td>\</td><td>TryFrom</td><td>TryFrom</td><td>TryFrom</td><td>TryFrom</td></tr>
+<tr><td>IBig</td><td>From</td><td>\</td><td>TryFrom</td><td>TryFrom</td><td>TryFrom</td></tr>
+<tr><td>FBig/DBig</td><td>From</td><td>From</td><td>\</td><td>TryFrom<sup class="footnote-reference" id="fr-a-1"><a href="#footnote-a">1</a></sup></td><td>TryFrom</td></tr>
+<tr><td>RBig</td><td>From</td><td>From</td><td>TryFrom<sup class="footnote-reference" id="fr-a-2"><a href="#footnote-a">1</a></sup></td><td>\</td><td>—</td></tr>
+<tr><td>CBig</td><td>From</td><td>From</td><td>From</td><td>—</td><td>\</td></tr>
+</tbody>
+</table>
+</div>
+<blockquote></blockquote>
+<p>这些转换仅在转换是精确的（无损失的）且在范围内的前提下才会成功。例如，从浮点数到整数的转换会在浮点数为无穷时失败（返回 <code>Err(ConversionError::OutOfBounds)</code>），或在有小数部分时失败（返回 <code>Err(ConversionError::LossOfPrecision)</code>）。</p>
+<p>尽管如此，还有一些用于<strong>有损</strong>转换的有用方法：</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>源\目标</th><th>UBig</th><th>IBig</th><th>FBig/DBig</th><th>RBig</th></tr>
+</thead>
+<tbody>
+<tr><td>UBig</td><td>\</td><td>\</td><td>\</td><td>\</td></tr>
+<tr><td>IBig</td><td><code>.unsigned_abs()</code></td><td>\</td><td>\</td><td>\</td></tr>
+<tr><td>FBig/DBig</td><td>\</td><td><code>.to_int()</code>[^b]</td><td>…[^c]</td><td><code>.simplest_from_float()</code>[^d]</td></tr>
+<tr><td>RBig</td><td>\</td><td><code>.to_int()/.trunc()/.floor()/.ceil()</code></td><td><code>.to_float()</code>[^e]</td><td>\</td></tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<ul>
+<li>[^b] <code>FBig</code> 的 <code>.ceil()</code>、<code>.floor()</code> 和 <code>.trunc()</code> 方法不返回 <code>IBig</code>，因为当 <code>FBig</code> 非常大（指数很高）时，<code>IBig</code> 结果可能消耗大量内存，这通常不是理想的行为。</li>
+<li>[^c] 请参阅下方的<em>FBig/DBig 的转换</em>章节。</li>
+<li>[^d] 请参阅下方的<em>从浮点数转换到 RBig</em>章节了解更多方法。</li>
+<li>[^e] 此方法需要为 <code>dashu-ratio</code> crate 启用 <code>dashu-float</code> 特性。</li>
+</ul>
+</blockquote>
+<p>另一个有用的转换是 <code>UBig::as_ibig()</code>。由于 <code>UBig</code> 和 <code>IBig</code> 具有相同的内存布局，<code>UBig</code> 可以通过此方法直接用作 <code>IBig</code>。类似地，当你想将 <code>RBig</code> 实例用作 <code>dashu::rational::Relaxed</code> 时，<code>RBig::as_relaxed()</code> 也会很有帮助。</p>
+<p>除了这些专为转换设计的方法之外，构造函数和析构函数也可以用于类型转换的目的，尤其是从复合类型到其组成部分的转换。请参阅<a href="#从组成部分构造">构造与析构</a>页面了解此方式。</p>
+<h2 id="大数与基本类型之间的转换"><a class="header" href="#大数与基本类型之间的转换">大数与基本类型之间的转换</a></h2>
+<p><code>dashu</code> crate 中的所有数值类型都支持与基本类型之间的相互转换。</p>
+<p>从基本类型到大数的转换：</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>目标\源</th><th>u*（如 u8）</th><th>i*（如 i8）</th><th>f*（如 f32）</th></tr>
+</thead>
+<tbody>
+<tr><td>UBig</td><td>From</td><td>TryFrom</td><td>TryFrom</td></tr>
+<tr><td>IBig</td><td>From</td><td>From</td><td>TryFrom</td></tr>
+<tr><td>FBig/DBig</td><td>From</td><td>From</td><td>TryFrom*</td></tr>
+<tr><td>RBig</td><td>From</td><td>From</td><td>TryFrom</td></tr>
+<tr><td>CBig</td><td>From</td><td>From</td><td>TryFrom*</td></tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>*：从 <code>f32</code>/<code>f64</code> 到 <code>FBig</code>/<code>CBig</code> 的转换<strong>仅在基数 2 中定义</strong>，因为当基数不是 2 的幂时，转换几乎总是有损的。要从 <code>f32</code>/<code>f64</code> 转换到其他基数的大浮点数（如基数为 10 的 <code>DBig</code>），可以先转换为基数 2，再使用 <code>.with_base()</code> 方法转换到其他基数。这样可以在转换过程中显式选择舍入模式。</p>
+</blockquote>
+<p>从大数到基本类型的转换：</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>源\目标</th><th>u*（如 u8）</th><th>i*（如 i8）</th><th>f*（如 f32）</th></tr>
+</thead>
+<tbody>
+<tr><td>UBig</td><td>TryInto</td><td>TryInto</td><td>TryInto/<code>.to_f*()</code></td></tr>
+<tr><td>IBig</td><td>TryInto</td><td>TryInto</td><td>TryInto/<code>.to_f*()</code></td></tr>
+<tr><td>FBig/DBig</td><td>TryInto</td><td>TryInto</td><td>TryInto/<code>.to_f*()</code></td></tr>
+<tr><td>RBig</td><td>TryInto</td><td>TryInto</td><td>TryInto/<code>.to_f*()</code>/<code>.to_f*_fast()</code></td></tr>
+<tr><td>CBig</td><td>TryInto</td><td>TryInto</td><td>TryInto</td></tr>
+</tbody>
+</table>
+</div>
+<p>在上表中，<code>.to_f*()</code> 表示 <code>.to_f32()</code> 和 <code>.to_f64()</code>，类似地 <code>.to_f*_fast()</code> 表示 <code>.to_f32_fast()</code> 和 <code>.to_f64_fast()</code>。<em>fast</em> 方法不保证正确舍入，因此速度更快。推荐使用 <code>.to_f*()</code> 方法而非 <code>TryFrom</code>/<code>TryInto</code> trait，因为 <code>.to_f*()</code> 不会失败，并且还会返回转换过程中的舍入方向（即舍入误差的符号）。（<code>CBig</code> 没有 <code>.to_f*()</code> 方法——它唯一的浮点数转换路径是 <code>TryInto</code>，该路径仅限基数 2。）</p>
+<p>与基本类型之间的相互转换也为 <code>dashu::float::Repr</code> 类型实现。尤其是 <code>.to_f32()</code> 和 <code>.to_f64()</code> 的实现遵循默认的 IEEE 舍入模式。</p>
+<h3 id="fbigdbig-的转换"><a class="header" href="#fbigdbig-的转换">FBig/DBig 的转换</a></h3>
+<p>涉及 <code>FBig</code>/<code>DBig</code> 的转换比整数类型更为丰富，因为浮点数携带三个独立的可调参数：<strong>基数</strong>、<strong>精度</strong>（有效数位的上限）和<strong>舍入模式</strong>。因此大多数转换都有两种形式——当没有信息丢失时使用不会失败的 <code>From</code>/<code>Into</code>，当要求精确性时使用可能失败的 <code>TryFrom</code>/<code>TryInto</code>。</p>
+<h3 id="转换到不同的基数--精度--舍入模式"><a class="header" href="#转换到不同的基数--精度--舍入模式">转换到不同的基数 / 精度 / 舍入模式</a></h3>
+<p>基数、精度和舍入模式可以独立更改：</p>
+<ul>
+<li><code>with_rounding::&lt;NewR&gt;()</code> 在不同的舍入模式下重新解释同一个值——底层表示不变，只有上下文的舍入字段改变，因此不会发生舍入。</li>
+<li><code>with_precision(p)</code> 将尾数扩展或缩减到 <code>p</code> 位。扩展总是精确的（<code>Approximation::Exact</code>）；缩减按 <code>R</code> 进行舍入并返回携带舍入方向的 <code>Approximation::Inexact</code>。</li>
+</ul>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use dashu::base::Approximation::*;
+use dashu::float::DBig;
+use dashu::float::round::Rounding::*;
+
+let a = DBig::from_str("2.345")?;
+assert_eq!(a.precision(), 4);
+assert_eq!(a.clone().with_precision(3), Inexact(DBig::from_str("2.35")?, AddOne));
+assert_eq!(a.clone().with_precision(5), Exact(DBig::from_str("2.345")?));
+<span class="boring">}</span></code></pre>
+<ul>
+<li><code>with_base::&lt;NewB&gt;()</code> 转换到不同的基数。结果精度会被选择为使尾数上限不超过原来的——即满足 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1517em;vertical-align:-0.136em;"></span><span class="mord"><span class="mord"><span class="mord mathrm">NewB</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.0157em;"><span style="top:-3.1362em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mspace mtight" style="margin-right:0.1952em;"></span><span class="mord mtight"><span class="mord mathnormal mtight">p</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8278em;"><span style="top:-2.931em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mspace mtight" style="margin-right:0.1952em;"></span><span class="mord mathnormal mtight">p</span></span></span></span></span></span></span></span></span></span></span></span> 的最大整数 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9463em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span>。当一个基数是另一个基数的幂时，转换是精确的；否则按 <code>R</code> 进行舍入。<code>with_base_and_precision::&lt;NewB&gt;(p)</code> 允许你显式设置目标精度。</li>
+</ul>
+<p>对于常见的二进制 ↔ 十进制切换，有两个快捷方法会自动为你选择舍入模式：<code>to_decimal()</code> 是 <code>with_rounding::&lt;HalfAway&gt;().with_base::&lt;10&gt;()</code>（产生 <code>DBig</code>），<code>to_binary()</code> 是 <code>with_rounding::&lt;Zero&gt;().with_base::&lt;2&gt;()</code>。</p>
+<blockquote>
+<p>如果关联的上下文具有<strong>无限精度</strong>且转换无法无损完成，这些方法将 panic——请先设置精度。</p>
+</blockquote>
+<h3 id="转换到整数或基本浮点数"><a class="header" href="#转换到整数或基本浮点数">转换到整数或基本浮点数</a></h3>
+<p>将 <code>UBig</code>/<code>IBig</code>（或任何基本整数）转换<em>到</em> <code>FBig</code> 时，精度从绝对值推断：结果精度等于该整数在基数 <code>B</code> 下的有效数位位数。</p>
+<p>反向转换时，<code>TryFrom&lt;FBig&gt; for IBig</code>/<code>UBig</code> 仅在浮点数有限且恰好为整数值时才成功——无穷时返回 <code>ConversionError::OutOfBounds</code>，有小数部分时返回 <code>LossOfPrecision</code>。如需舍入感知的路径，请使用 <code>to_int()</code>，它总是成功并报告舍入方向：</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use dashu::base::Approximation::*;
+use dashu::float::DBig;
+use dashu::float::round::Rounding::*;
+
+assert_eq!(DBig::from_str("1234")?.to_int(), Exact(1234.into()));
+assert_eq!(DBig::from_str("1.234")?.to_int(), Inexact(1.into(), NoOp));
+<span class="boring">}</span></code></pre>
+<p>转换为基本浮点数时，<code>to_f32()</code> / <code>to_f64()</code> 返回携带舍入方向的 <code>Rounded&lt;f32&gt;</code> / <code>Rounded&lt;f64&gt;</code>；它们不会失败（上溢产生 <code>±∞</code>，无穷映射到无穷）。反向——<code>TryFrom&lt;f32&gt;</code>/<code>TryFrom&lt;f64&gt; for FBig</code>——<strong>仅限基数 2</strong>（在其他任何基数中几乎总是有损的）；要到达非二进制的 <code>FBig</code>，请先转换为基数 2，再调用 <code>with_base()</code>。NaN 会被以 <code>ConversionError::OutOfBounds</code> 拒绝。</p>
+<h3 id="转换到-rbig"><a class="header" href="#转换到-rbig">转换到 RBig</a></h3>
+<p>当为 <code>dashu-ratio</code> 启用可选的 <code>dashu-float</code> 特性时，<code>TryFrom&lt;FBig&gt; for RBig</code> 仅在浮点数恰好可以表示为有理数时才成功，而 <code>RBig::to_float()</code> 是另一方向的舍入感知路径。</p>
+<p>要用一个<em>简单</em>有理数（容差内分子/分母最小的）近似浮点数，请使用 <code>simplest_from_f32</code> / <code>simplest_from_f64</code>，或在 <code>FBig</code>/<code>DBig</code> 上使用区间查询 <code>simplest_in</code>、<code>nearest_in</code>、<code>next_up</code> 和 <code>next_down</code>——这些方法将浮点数自身的舍入区间作为搜索范围。</p>
+<hr>
+<ol class="footnote-definition">
+<li id="footnote-a">
+<p>要使用 <code>RBig</code> 与 <code>FBig</code> 之间的转换，必须为 <code>dashu-ratio</code> crate 启用可选特性 <code>dashu-float</code>。 <a href="#fr-a-1">↩</a> <a href="#fr-a-2">↩2</a></p>
+</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="输入与输出"><a href="#输入与输出" class="header">输入与输出</a></h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<p><code>dashu</code> 的数值类型实现了 Rust 的标准格式化与解析 trait，并额外提供了一些 <code>dashu</code> 特有的 API，用于进制转换、按位展开和字节级序列化。本节涵盖以下内容：</p>
+<ul>
+<li><a href="#解析">解析</a> — 每个类型的 <code>FromStr</code> 和 <code>from_str_radix</code>，包括浮点数的指数形式。</li>
+<li><a href="#打印">打印</a> — <code>Display</code>、<code>Debug</code>、<code>Binary</code>/<code>Octal</code>/<code>LowerHex</code>/<code>UpperHex</code> trait、<code>in_radix</code>，以及有理数的位置展开。</li>
+<li><a href="#序列化">序列化</a> — 字节序列、<code>serde</code> 和 <code>rkyv</code>。</li>
+<li><a href="#互操作性">互操作</a> — 对 <code>UBig</code> 原始表示的低级数位 / 字节 / word 访问。</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="解析"><a href="#解析" class="header">解析</a></h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<p>每个数值类型都实现了 <code>FromStr</code>，因此可以通过 <code>"...".parse()?</code> 或 <code>T::from_str(...)</code> 来构建值。所有数值字面量中都允许使用下划线分隔符。</p>
+<h2 id="解析整数"><a class="header" href="#解析整数">解析整数</a></h2>
+<p><code>UBig::from_str</code> / <code>IBig::from_str</code> 接受一个可选的符号后跟十进制数位。对于其他基数，请使用 <code>from_str_radix(s, radix)</code>（基数 2–36）；它会独立于 <code>radix</code> 参数自动识别 <code>0x</code>/<code>0o</code>/<code>0b</code> 前缀。</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use dashu::integer::{UBig, IBig};
+use core::str::FromStr;
+
+assert_eq!(UBig::from_str("12345")?, UBig::from(12345u16));
+assert_eq!(IBig::from_str_radix("-1aff", 16)?, IBig::from(-0x1aff));
+<span class="boring">}</span></code></pre>
+<h2 id="解析浮点数"><a class="header" href="#解析浮点数">解析浮点数</a></h2>
+<p><code>FBig</code>/<code>DBig</code> 的 <code>FromStr</code> 以该值的原生基数读取尾数，指数采用以下形式之一：</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>形式</th><th>含义</th><th>基数</th></tr>
+</thead>
+<tbody>
+<tr><td><code>aaa</code> / <code>aaa.</code> / <code>aaa.bbb</code></td><td>定点数</td><td>任意</td></tr>
+<tr><td><code>aaa.bbb@cc</code></td><td>尾数 × 基数^cc</td><td>任意</td></tr>
+<tr><td><code>aaa.bbbEcc</code> / <code>aaa.bbbecc</code></td><td>尾数 × 10^cc</td><td>10</td></tr>
+<tr><td><code>0xaaa.bbbPcc</code></td><td>十六进制尾数 × 2^cc</td><td>2</td></tr>
+</tbody>
+</table>
+</div>
+<p>精度根据所给出的有效数位数推断。字符串字面量 <code>inf</code>/<code>NaN</code> <strong>不被</strong>接受——请使用 <code>INFINITY</code> 常量来构造无穷值。</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use dashu::float::DBig;
+use core::str::FromStr;
+
+assert_eq!(format!("{:e}", DBig::from_str("6.022e23")?), "6.022e23");
+assert_eq!(DBig::from_str("-0.0123456789")?.to_string(), "-0.0123456789");
+<span class="boring">}</span></code></pre>
+<h2 id="解析有理数"><a class="header" href="#解析有理数">解析有理数</a></h2>
+<p><code>RBig::from_str</code> 接受 <code>numerator/denominator</code> 格式，或仅一个分子（分母默认为 1）。<code>from_str_radix</code> 以给定基数解析分子和分母两部分；<code>0x</code>/<code>0o</code>/<code>0b</code> 前缀在两者之间必须保持一致。</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use dashu::rational::RBig;
+use core::str::FromStr;
+
+assert_eq!(RBig::from_str("22/7")?.to_string(), "22/7");
+<span class="boring">}</span></code></pre>
+<h2 id="解析复数"><a class="header" href="#解析复数">解析复数</a></h2>
+<p><code>CBig::FromStr</code> 接受与 <code>Display</code> 输出相同的代数 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">bi</span></span></span></span> 文法：一个可选的实部项加上一个可选的带符号虚部项（至少需要一项）；系数为 1 时可以省略（<code>i</code>、<code>-i</code>）。MPC 风格的括号形式 <code>(re im)</code> <strong>不被</strong>接受。</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use dashu::complex::CBig;
+use dashu::float::round::mode::HalfAway;
+use core::str::FromStr;
+
+type C = CBig&lt;HalfAway, 10&gt;;
+assert_eq!(C::from_str("1+2i")?.to_string(), "1+2i");
+assert_eq!(C::from_str("-i")?.to_string(), "-i");
+<span class="boring">}</span></code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="打印"><a href="#打印" class="header">打印</a></h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<p><code>UBig</code> 和 <code>IBig</code> 支持完整的 Rust 标准格式化 trait 集合：<code>Display</code>、<code>Debug</code>、<code>Binary</code>、<code>Octal</code>、<code>LowerHex</code>、<code>UpperHex</code>。浮点数、有理数和复数类型支持 <code>Display</code> 和 <code>Debug</code>，并附带下文所述的额外进制/位置展开辅助方法。所有类型都遵循 <code>Formatter</code> 的符号、宽度、填充和对齐选项。</p>
+<h2 id="整数格式化"><a class="header" href="#整数格式化">整数格式化</a></h2>
+<p><code>Display</code> 以十进制渲染 <code>UBig</code>/<code>IBig</code>。<code>Binary</code>、<code>Octal</code>、<code>LowerHex</code> 和 <code>UpperHex</code> trait 分别以二进制/八进制/十六进制渲染，<code>#</code> 标志会添加传统的 <code>0b</code>/<code>0o</code>/<code>0x</code>/<code>0X</code> 前缀。对于其他基数，请使用 <code>in_radix(r)</code>（基数 2–36）；其 <code>#</code> 标志会将 9 以上的数位转为大写。</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use dashu::integer::UBig;
+
+let n = UBig::from(255u8);
+assert_eq!(format!("{}", n), "255");
+assert_eq!(format!("{:#x}", n), "0xff");
+assert_eq!(format!("{:#b}", n), "0b11111111");
+
+assert_eq!(format!("{}", n.in_radix(16)), "ff");
+assert_eq!(format!("{:#}", n.in_radix(16)), "FF");
+<span class="boring">}</span></code></pre>
+<h2 id="浮点数格式化"><a class="header" href="#浮点数格式化">浮点数格式化</a></h2>
+<p><code>FBig</code>/<code>DBig</code> 的 <code>Display</code> 根据指数定位小数点来渲染尾数——这是自然的位置形式，而非科学记数法。格式化器的精度选项会将结果舍入到指定的小数位数。</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use core::str::FromStr;
+use dashu::float::DBig;
+
+assert_eq!(format!("{}", DBig::from_str("12.34")?), "12.34");
+assert_eq!(format!("{:.1}", DBig::from_str("12.34")?), "12.3");
+<span class="boring">}</span></code></pre>
+<p>要使用科学记数法，请使用 <code>LowerExp</code>/<code>UpperExp</code>：在十进制下指数标记为 <code>e</code>/<code>E</code>，在其他基数下为 <code>@</code>。无穷值在 <code>Display</code> 和 <code>Debug</code> 下均渲染为 <code>inf</code> / <code>-inf</code>。</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use core::str::FromStr;
+use dashu::float::DBig;
+
+assert_eq!(format!("{:e}", DBig::from_str("1234.5")?), "1.2345e3");
+assert_eq!(format!("{:E}", DBig::from_str("1234.5")?), "1.2345E3");
+<span class="boring">}</span></code></pre>
+<h2 id="有理数格式化"><a class="header" href="#有理数格式化">有理数格式化</a></h2>
+<p><code>RBig</code>/<code>Relaxed</code> 的 <code>Display</code> 渲染为 <code>numerator/denominator</code>，当分母为 <code>1</code> 时只渲染分子。<code>Binary</code>/<code>Octal</code>/<code>LowerHex</code>/<code>UpperHex</code> trait 和 <code>in_radix(r)</code> 以给定基数格式化分子和分母两部分。</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use core::str::FromStr;
+use dashu::rational::RBig;
+
+assert_eq!(format!("{}", RBig::from_str("22/7")?), "22/7");
+assert_eq!(format!("{}", RBig::from_str("5/1")?), "5");
+<span class="boring">}</span></code></pre>
+<p>对于位置（十进制）展开，请使用 <code>in_expanded()</code>。<code>{:.N}</code> 打印恰好 <code>N</code> 位小数；<code>#</code> 标志会检测循环节并用括号括起：</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use dashu::rational::RBig;
+
+let x = RBig::from_parts(1.into(), 3u8.into());
+assert_eq!(format!("{:.4}", x.in_expanded()), "0.3333");
+assert_eq!(format!("{:#}", x.in_expanded()), "0.(3)");
+<span class="boring">}</span></code></pre>
+<h2 id="复数格式化"><a class="header" href="#复数格式化">复数格式化</a></h2>
+<p><code>CBig</code> 的 <code>Display</code> 使用代数 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">bi</span></span></span></span> 记法：虚部项始终带有显式符号，系数为 1 时省略（<code>i</code> 而非 <code>1i</code>），虚部为零时省略。</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use dashu::complex::CBig;
+use dashu::float::{FBig, round::mode::HalfAway};
+
+type C = CBig&lt;HalfAway, 10&gt;;
+type F = FBig&lt;HalfAway, 10&gt;;
+
+assert_eq!(format!("{}", C::from_parts(F::from(1), F::from(2))), "1+2i");
+assert_eq!(format!("{}", C::from_parts(F::from(-3), F::from(-4))), "-3-4i");
+assert_eq!(format!("{}", C::from_parts(F::from(5), F::from(0))), "5");
+assert_eq!(format!("{}", C::from_parts(F::from(0), F::from(1))), "i");
+assert_eq!(format!("{}", C::from_parts(F::from(0), F::from(-1))), "-i");
+<span class="boring">}</span></code></pre>
+<p>输入端也接受相同的代数文法——参见<a href="#解析">解析</a>。</p>
+<h2 id="debug-打印"><a class="header" href="#debug-打印">Debug 打印</a></h2>
+<p><code>Debug</code> 输出用于快速检查（它<strong>不是</strong>稳定的序列化格式——参见<a href="#序列化">序列化</a>）。大整数使用紧凑的 <strong>head..tail</strong> 格式——最高位数位、<code>..</code> 分隔符、最低位数位，中间部分省略——而小整数则完整打印。每种数值类型都有各自的 <code>Debug</code> 形式：</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use core::str::FromStr;
+use dashu::complex::CBig;
+use dashu::float::{CachedFBig, Context, DBig, FBig, Repr, round::mode::HalfAway};
+use dashu::integer::{IBig, UBig};
+use dashu::rational::RBig;
+
+// UBig / IBig — 大数值使用 head..tail，小数值完整打印
+assert_eq!(format!("{:?}", UBig::from(12345u16)), "12345");
+assert_eq!(format!("{:?}", IBig::from(-12345)), "-12345");
+assert_eq!(
+    format!("{:?}", UBig::ONE &lt;&lt; 1000),
+    "1071508607186267320..4386837205668069376"
+);
+
+// FBig / DBig — significand * base ^ exponent (prec: N)
+let f: FBig = FBig::from(3u8); // FBig&lt;Zero, 2&gt;
+assert_eq!(format!("{:?}", f), "3 * 2 ^ 0 (prec: 2)");
+assert_eq!(format!("{:?}", DBig::from_str("12.34")?), "1234 * 10 ^ -2 (prec: 4)");
+
+// CachedFBig — 暴露 repr 和精度的结构体
+let c = CachedFBig::&lt;HalfAway, 10&gt;::with_cache(Repr::new(1234.into(), -3), Context::new(50));
+assert_eq!(format!("{:?}", c), "CachedFBig { repr: 1234 * 10 ^ -3, precision: 50 }");
+
+// RBig — numerator / denominator
+assert_eq!(format!("{:?}", RBig::from_parts(1.into(), 3u8.into())), "1 / 3");
+
+// CBig — re:&lt;re&gt; im:&lt;im&gt; (prec: N)
+type F = FBig&lt;HalfAway, 10&gt;;
+assert_eq!(
+    format!("{:?}", CBig::&lt;HalfAway, 10&gt;::from_parts(F::from(3), F::from(4))),
+    "re:3 im:4 (prec: 1)"
+);
+<span class="boring">}</span></code></pre>
+<p>head..tail 的数位数量取决于 <code>Word</code> 大小——在 64 位平台上每端 19 位十进制数位，32 位平台上每端 9 位。详细形式 <code>{:#?}</code> 以结构化视图美观地打印值；对于复合类型，它会展示完整的分解：</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use core::str::FromStr;
+use dashu::complex::CBig;
+use dashu::float::{CachedFBig, Context, DBig, FBig, Repr, round::mode::HalfAway};
+use dashu::integer::UBig;
+use dashu::rational::RBig;
+
+let f: FBig = FBig::from(3u8);
+let c = CachedFBig::&lt;HalfAway, 10&gt;::with_cache(Repr::new(1234.into(), -3), Context::new(50));
+type F = FBig&lt;HalfAway, 10&gt;;
+let z = CBig::&lt;HalfAway, 10&gt;::from_parts(F::from(3), F::from(4));
+
+println!("{:#?}", UBig::from(12345u16));
+println!("{:#?}", f);
+println!("{:#?}", DBig::from_str("12.34")?);
+println!("{:#?}", c);
+println!("{:#?}", RBig::from_parts(1.into(), 3u8.into()));
+println!("{:#?}", z);
+<span class="boring">}</span></code></pre>
+<p>依次对 <code>UBig</code>、<code>FBig</code>、<code>DBig</code>、<code>CachedFBig</code>、<code>RBig</code>、<code>CBig</code> 的输出如下：</p>
+<pre><code class="language-text">12345 (digits: 5, bits: 14)
+FBig {
+    significand: 3 (2 bits),
+    exponent: 2 ^ 0,
+    precision: 2,
+    rounding: Zero,
+}
+FBig {
+    significand: 1234 (digits: 4, bits: 11),
+    exponent: 10 ^ -2,
+    precision: 4,
+    rounding: HalfAway,
+}
+CachedFBig {
+    repr: Repr {
+        significand: 1234 (digits: 4, bits: 11),
+        exponent: 10 ^ -3,
+    },
+    precision: 50,
+}
+RBig {
+    numerator: 1 (digits: 1, bits: 1),
+    denominator: 3 (digits: 1, bits: 2),
+}
+CBig {
+    re: FBig {
+        significand: 3 (digits: 1, bits: 2),
+        exponent: 10 ^ 0,
+        precision: 1,
+        rounding: HalfAway,
+    },
+    im: FBig {
+        significand: 4 (digits: 1, bits: 3),
+        exponent: 10 ^ 0,
+        precision: 1,
+        rounding: HalfAway,
+    },
+    precision: 1,
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="序列化"><a href="#序列化" class="header">序列化</a></h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<pre><code class="language-text">序列化数值的布局受 semver 保护。对布局的更改被视为破坏性变更，将发布新的主版本。
+</code></pre>
+<p><code>dashu</code> 为其整数和浮点数类型提供三个层次的（反）序列化方案，可根据所需的可移植性或速度来选择。</p>
+<h2 id="转换为字节"><a class="header" href="#转换为字节">转换为字节</a></h2>
+<p><code>UBig</code> 和 <code>IBig</code> 可以通过 <code>to_le_bytes</code> / <code>to_be_bytes</code> 和 <code>from_le_bytes</code> / <code>from_be_bytes</code> 与显式字节序的字节序列相互转换。这些是可移植的、布局稳定的格式，适合用于二进制交换。</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use dashu::integer::UBig;
+
+let n = UBig::from(0x12345678u32);
+let bytes = n.to_le_bytes();
+assert_eq!(UBig::from_le_bytes(&amp;bytes), n);
+<span class="boring">}</span></code></pre>
+<h2 id="使用-serde-序列化"><a class="header" href="#使用-serde-序列化">使用 <code>serde</code> 序列化</a></h2>
+<p>启用 <code>serde</code> 特性后，每个数值类型都实现 <code>Serialize</code> / <code>Deserialize</code>。人类可读形式（当 <code>is_human_readable()</code> 为 <code>true</code> 时）为字符串，便于在 JSON/TOML 中使用；否则使用紧凑的二进制形式。仅二进制形式的布局受 semver 保护。</p>
+<h2 id="使用-rkyv-序列化"><a class="header" href="#使用-rkyv-序列化">使用 <code>rkyv</code> 序列化</a></h2>
+<p>启用 <code>rkyv</code> 特性后，整数类型支持零拷贝（反）序列化——在同架构场景下速度最快，代价是布局的可移植性较低。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="互操作性"><a href="#互操作性" class="header">互操作性</a></h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<p>除了标准格式化和解析 trait 之外，<code>dashu-int</code> 还暴露了对 <code>UBig</code> 原始表示的低级访问，以便与其他库互操作或构建自定义（反）序列化。</p>
+<h2 id="数位访问"><a class="header" href="#数位访问">数位访问</a></h2>
+<p><code>UBig::to_digits(base)</code> 以任意基数 <code>2..=Word::MAX</code> 返回该数的数位（最高位在前，存储为 <code>Word</code>），而 <code>UBig::from_digits(base, &amp;digits)</code> 则从数位重建数值。这推广了 <code>in_radix</code>（后者仅限于基数 2–36 的字符串输出），支持任意基数和 word 大小的数位。</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use dashu::integer::UBig;
+
+let n = UBig::from(0x1234u16);
+let digits = n.to_digits(16); // [1, 2, 3, 4], 最高位在前
+assert_eq!(UBig::from_digits(16, &amp;digits)?, n);
+<span class="boring">}</span></code></pre>
+<h2 id="字节访问"><a class="header" href="#字节访问">字节访问</a></h2>
+<p><code>to_le_bytes</code> / <code>to_be_bytes</code> 和 <code>from_le_bytes</code> / <code>from_be_bytes</code> 提供可移植的、显式字节序的字节表示——参见<a href="#序列化">序列化</a>。</p>
+<h2 id="word-访问"><a class="header" href="#word-访问">Word 访问</a></h2>
+<p><code>UBig::from_words(&amp;[w0, w1, …])</code> 从小端序 word 构建值，而 <code>.as_words()</code> 在不复制的情况下借用底层 word 切片。这是最接近内存中原始形式的方式。</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use dashu::integer::{UBig, Word};
+
+let n = UBig::from_words(&amp;[3, 2, 1]); // 3 + 2·Word + 1·Word²
+let words: &amp;[Word] = n.as_words();
+<span class="boring">}</span></code></pre>
+<blockquote>
+<p><code>UBig</code> 的确切内存布局尚未稳定——不要跨版本依赖 word 布局。</p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="运算-1"><a href="#运算-1" class="header">运算</a></h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<p><code>dashu</code> 为其数值类型实现了完整的算术、比较、按位和数论运算，遵循 Rust 标准运算符约定。本节涵盖以下各个类别：</p>
+<ul>
+<li><a href="#相等性与比较">相等性与比较</a> —— <code>PartialEq</code>/<code>Eq</code>、排序、大小比较与哈希。</li>
+<li><a href="#基本算术">基本算术</a> —— <code>+ - * /</code> 以及每种类型的其余域运算。</li>
+<li><a href="#指数与对数">指数与对数</a> —— <code>exp</code>、<code>ln</code>、幂、根及常数，以及复数的对应函数。</li>
+<li><a href="#三角与双曲函数">三角函数与双曲函数</a> —— <code>sin</code>/<code>cos</code>/<code>tan</code> 及双曲函数族，实数与复数。</li>
+<li><a href="#位操作">位操作</a> —— 按位运算符以及将 <code>UBig</code> 用作位向量。</li>
+<li><a href="#数论运算">数论运算</a> —— 最大公约数、扩展最大公约数及模运算。</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="相等性与比较"><a href="#相等性与比较" class="header">相等性与比较</a></h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<p>比较运算<strong>仅在同类大数之间</strong>原生支持，大数与基本类型之间不直接比较——这是为了避免 <a href="https://github.com/rust-num/num-bigint/issues/150"><code>num-bigint</code>#150</a> 中所述的 trait 重叠问题。若要将大数与基本类型进行比较，请启用 <code>num-order</code> 特性并使用 <code>NumOrd</code> trait。</p>
+<h2 id="相等性"><a class="header" href="#相等性">相等性</a></h2>
+<p><code>PartialEq</code>/<code>Eq</code> 执行值的相等性比较。对于 <code>FBig</code>/<code>DBig</code>，它比较的是数值表示，忽略上下文（精度与舍入模式），因此精度不同但值相同的两个浮点数比较结果为相等。有符号零比较相等：<code>+0 == -0</code>。<code>CBig</code> 按分量比较，每个分量上 <code>+0 == -0</code>。</p>
+<h2 id="排序"><a class="header" href="#排序">排序</a></h2>
+<p><code>UBig</code>/<code>IBig</code>/<code>RBig</code>/<code>FBig</code>/<code>DBig</code> 携带自然的数值全序（<code>Ord</code>）。无穷值位于两端：<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">∞</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7224em;vertical-align:-0.0391em;"></span><span class="mord text"><span class="mord cjk_fallback">有限</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord">+</span><span class="mord">∞</span></span></span></span>。<code>CBig</code> 按 <code>(re, then im)</code> 定义字典序全序——可用于排序和 <code>BTreeMap</code>，但请注意它<em>并非</em>代数意义上的大小序。</p>
+<h2 id="符号"><a class="header" href="#符号">符号</a></h2>
+<p>有符号类型（<code>IBig</code>、<code>FBig</code>/<code>DBig</code>、<code>RBig</code>、<code>CBig</code>）提供 <code>.sign()</code> 方法（返回 <code>dashu::base::Sign</code>，其中零为 <code>Positive</code>）和 <code>.signum()</code> 方法（以同类型返回 <code>-1</code>、<code>0</code> 或 <code>+1</code>）。</p>
+<h2 id="大小比较与跨类型排序"><a class="header" href="#大小比较与跨类型排序">大小比较与跨类型排序</a></h2>
+<p><code>AbsOrd</code>（来自 <code>dashu-base</code>）按绝对值比较；对于 <code>CBig</code>，它按 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mord">∣</span></span></span></span> 比较。<code>num-order</code> 特性添加了 <code>NumOrd</code> 用于跨不同数值类型（大数与基本类型）的排序，以及 <code>NumHash</code> 用于跨类型哈希，并保持它们之间的一致性。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="基本算术"><a href="#基本算术" class="header">基本算术</a></h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<p>所有数值类型都实现了标准算术运算符，同时支持拥有值与借用值作为操作数。除法和余数的行为因类型而异。</p>
+<h2 id="整数算术"><a class="header" href="#整数算术">整数算术</a></h2>
+<p><code>UBig</code> 和 <code>IBig</code> 支持 <code>+</code>、<code>-</code>、<code>*</code>、<code>/</code> 和 <code>%</code>。整数除法向零取整，余数取被除数的符号（C/Rust 约定）。若需要欧几里得除法（非负余数），请使用 <code>dashu-base</code> 中的 <code>DivRemEuclid</code> / <code>RemEuclid</code> trait；<code>DivRem</code> 则同时返回商和余数。</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use dashu::integer::IBig;
+
+let b = IBig::from(-0x10ff);
+let e = 2 * &amp;b - 1; // 与基本类型自然混用
+assert_eq!(e, IBig::from(-0x21ff));
+<span class="boring">}</span></code></pre>
+<h2 id="浮点算术"><a class="header" href="#浮点算术">浮点算术</a></h2>
+<p><code>FBig</code>/<code>DBig</code> 支持<strong>相同基数和舍入模式</strong>的值之间的 <code>+</code>、<code>-</code>、<code>*</code>、<code>/</code>（混合基数是设计上的编译错误）。结果的精度为 <code>max(lhs.precision, rhs.precision)</code>，每次运算通过<a href="#指数与对数">指数与对数</a>中所述的两层 API 报告其不精确性。无穷值是终态：<code>1/0</code> 和 <code>ln(0)</code> 产生 <code>±∞</code>，但将无穷值再次送入算术运算则是错误（<code>FpError::InfiniteInput</code>）。</p>
+<h2 id="有理数算术"><a class="header" href="#有理数算术">有理数算术</a></h2>
+<p><code>RBig</code> 支持 <code>+</code>、<code>-</code>、<code>*</code>、<code>/</code>。除以零会 panic。<code>Relaxed</code> 执行相同的运算但不自动约分到最简形式（在连续运算链中更快）；需要时调用 <code>canonicalize()</code> 进行约分。</p>
+<h2 id="复数算术"><a class="header" href="#复数算术">复数算术</a></h2>
+<p><code>CBig</code> 支持域运算 <code>+</code>、<code>-</code>、<code>*</code>、<code>/</code>，以及 <code>sqr</code>（平方）和 <code>inv</code>（乘法逆）。还可以用实数 <code>FBig</code> 与 <code>CBig</code> 进行混合类型的乘法和除法。乘法和除法使用 Smith 方法并配合保护位和重新舍入，提供与 <code>dashu-float</code> 超越函数相同的近似正确舍入保证。</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use dashu::complex::CBig;
+use dashu::float::{FBig, round::mode::HalfAway};
+
+type C = CBig&lt;HalfAway, 10&gt;;
+let z = C::from_parts(FBig::from(3), FBig::from(4));
+let sum = &amp;z + &amp;C::I; // (3+4i) + i = 3+5i
+assert_eq!(sum.im().significand(), &amp;5.into());
+<span class="boring">}</span></code></pre>
+<h2 id="聚合sum-和-product"><a class="header" href="#聚合sum-和-product">聚合：<code>Sum</code> 和 <code>Product</code></a></h2>
+<p>所有数值类型都实现了 <code>core::iter::Sum</code> 和 <code>Product</code>，可迭代 <code>T</code> 或 <code>&amp;T</code>。对于 <code>FBig</code>/<code>DBig</code>，<code>Sum</code> 是正确舍入的——加数被精确累加，只舍入一次（MPFR <code>mpfr_sum</code>），而非用 <code>+</code> 逐项折叠（后者每步都舍入，可能丢失小加数）；结果的精度为所有加数精度的最大值。<code>Product</code> 在所有类型上均为普通折叠。对于 <code>FBig</code>/<code>DBig</code>/<code>CBig</code>，迭代器必须产生大数类型本身（需先转换基本类型），而 <code>UBig</code>/<code>IBig</code>/<code>RBig</code> 可直接接受基本类型元素。</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use dashu::float::DBig;
+
+let vals = [dbig!(1), dbig!(1e-20), dbig!(-1)];
+let folded = vals.iter().cloned().fold(DBig::ZERO, |a, b| a + b); // 0 — 1e-20 被舍入丢弃
+let summed: DBig = vals.iter().sum();                             // 1e-20 — Sum 是精确的
+<span class="boring">}</span></code></pre>
+<h2 id="混合类型算术"><a class="header" href="#混合类型算术">混合类型算术</a></h2>
+<p>不同种类的大数之间<strong>没有隐式混合类型运算符</strong>（例如 <code>UBig + FBig</code> 不能编译）——请先显式转换（参见<a href="#类型转换">类型转换</a>）。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="指数与对数"><a href="#指数与对数" class="header">指数与对数</a></h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<p><code>FBig</code>/<code>DBig</code> 提供指数、对数、幂和根函数族，以及数学常数。<code>CBig</code> 提供这些函数的复数对应版本。与所有不精确运算一样，它们以<a href="#两层-api">两层形式</a>提供——返回舍入结果的 <code>Context</code> 层和解包结果的便捷层。</p>
+<h2 id="实数函数"><a class="header" href="#实数函数">实数函数</a></h2>
+<ul>
+<li>指数函数：<code>exp</code>、<code>exp_m1</code>（<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7477em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>，在零附近精度更高）。</li>
+<li>对数函数：<code>ln</code>、<code>ln_1p</code>（<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">ln</span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>，在零附近精度更高）。</li>
+<li>幂与根：<code>powi(IBig)</code>、<code>powf(&amp;FBig)</code>、<code>sqrt</code>、<code>cbrt</code>、<code>nth_root(&amp;n)</code> 以及 <code>hypot(&amp;other)</code>（<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.24em;vertical-align:-0.2822em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9578em;"><span class="svg-align" style="top:-3.2em;"><span class="pstrut" style="height:3.2em;"></span><span class="mord" style="padding-left:1em;"><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7401em;"><span style="top:-2.989em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7401em;"><span style="top:-2.989em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span><span style="top:-2.9178em;"><span class="pstrut" style="height:3.2em;"></span><span class="hide-tail" style="min-width:1.02em;height:1.28em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.28em" viewbox="0 0 400000 1296" preserveaspectratio="xMinYMin slice"><path d="M263,681c0.7,0,18,39.7,52,119 c34,79.3,68.167,158.7,102.5,238c34.3,79.3,51.8,119.3,52.5,120 c340,-704.7,510.7,-1060.3,512,-1067 l0 -0 c4.7,-7.3,11,-11,19,-11 H40000v40H1012.3 s-271.3,567,-271.3,567c-38.7,80.7,-84,175,-136,283c-52,108,-89.167,185.3,-111.5,232 c-22.3,46.7,-33.8,70.3,-34.5,71c-4.7,4.7,-12.3,7,-23,7s-12,-1,-12,-1 s-109,-253,-109,-253c-72.7,-168,-109.3,-252,-110,-252c-10.7,8,-22,16.7,-34,26 c-22,17.3,-33.3,26,-34,26s-26,-26,-26,-26s76,-59,76,-59s76,-60,76,-60z M1001 80h400000v40h-400000z" /></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2822em;"><span></span></span></span></span></span></span></span></span>，不会溢出）。</li>
+<li>常数：<code>FBig::pi(precision)</code> 计算 π；使用 <a href="#fbigcbig-的缓存算术"><code>CachedFBig</code></a> 可在多次调用之间复用。</li>
+</ul>
+<p>（<code>exp2</code>/<code>exp10</code>/<code>log2</code>/<code>log10</code> 将推迟到后续的 0.5.x 版本。）</p>
+<h2 id="复数函数"><a class="header" href="#复数函数">复数函数</a></h2>
+<p><code>CBig</code> 镜像了实数函数集，提供 <code>exp</code>、<code>ln</code>、<code>sqrt</code>、<code>powi</code> 和 <code>powf</code>，基于实数实现构建。其恒等式为</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">exp</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7144em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mop">cos</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">sin</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:2em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">ln</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.854em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">ar<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mpunct">,</span></span></span></span></span></p>
+<p>其中 <code>ln</code> 的主支割线在 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∞</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">0</span><span class="mclose">]</span></span></span></span> 上——因此虚部零的符号决定了支割线的一侧。完整的 C99 Annex G 特殊值和支割线表请参见<a href="#标准合规性">标准合规性</a>。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="三角与双曲函数"><a href="#三角与双曲函数" class="header">三角与双曲函数</a></h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<p><code>FBig</code>/<code>DBig</code> 和 <code>CBig</code> 提供三角函数与双曲函数。它们被归在同一页面，是因为复数圆函数由实数圆函数<em>和</em>双曲函数共同构建。</p>
+<h2 id="实数函数-1"><a class="header" href="#实数函数-1">实数函数</a></h2>
+<ul>
+<li>圆函数：<code>sin</code>、<code>cos</code>、<code>tan</code> 以及 <code>sin_cos</code>（同时计算两者）；反函数 <code>asin</code>、<code>acos</code>、<code>atan</code> 以及四象限的 <code>atan2(y, x)</code>。</li>
+<li>双曲函数：<code>sinh</code>、<code>cosh</code>、<code>tanh</code>、<code>sinh_cosh</code>；反函数 <code>asinh</code>、<code>acosh</code>、<code>atanh</code>。</li>
+</ul>
+<p>角度以弧度为单位。<code>atan2</code> 遵循 C99 有符号零模型，这对于坐标轴上正确的支割线行为至关重要。</p>
+<h2 id="复数函数-1"><a class="header" href="#复数函数-1">复数函数</a></h2>
+<p><code>CBig</code> 提供圆函数族 <code>sin</code>、<code>cos</code>、<code>tan</code>、<code>sin_cos</code>、<code>asin</code>、<code>acos</code> 和 <code>atan</code>。它们通过以下恒等式由实数的 <code>sin</code>/<code>cos</code> 和 <code>sinh</code>/<code>cosh</code> 计算得出：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">sin</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mop">sin</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">cosh</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">cos</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">sinh</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mpunct">,</span><span class="mspace" style="margin-right:2em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">cos</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mop">cos</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">cosh</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">sin</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">sinh</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord">.</span></span></span></span></span></p>
+<p>反函数遵循 Kahan 有符号零支割线公式。（复数值双曲函数——<code>CBig::sinh</code>、<code>cosh</code> 等——将推迟到后续的 0.5.x 版本。）完整的 Annex G 特殊值和支割线表请参见<a href="#标准合规性">标准合规性</a>。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="位操作"><a href="#位操作" class="header">位操作</a></h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<p><code>UBig</code> 和 <code>IBig</code> 支持按位运算符 <code>&amp;</code>（与）、<code>|</code>（或）、<code>^</code>（异或）和 <code>!</code>（取反）。在 <code>UBig</code> 上，<code>!</code> 是<em>无限宽度</em>的补码——最高置位以上的每一位都被视为 <code>1</code>，因此 <code>!n</code> 通常是一个非常大的数。在 <code>IBig</code> 上，<code>!</code> 遵循二进制补码规则。</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use dashu::integer::UBig;
+
+let a = UBig::from(0b1100u8);
+let b = UBig::from(0b1010u8);
+assert_eq!(format!("{:b}", &amp;a &amp; &amp;b), "1000");
+assert_eq!(format!("{:b}", &amp;a | &amp;b), "1110");
+<span class="boring">}</span></code></pre>
+<h2 id="位测试与长度"><a class="header" href="#位测试与长度">位测试与长度</a></h2>
+<p><code>BitTest</code> trait（来自 <code>dashu-base</code>）用于测试和度量单个位：<code>.bit(n)</code> 返回第 <code>n</code> 位，<code>.bit_len()</code> 返回最高置位位置加一。<code>set_bit(n)</code> / <code>clear_bit(n)</code> 就地修改 <code>UBig</code>，<code>trailing_zeros()</code> 计算低位零位的个数。</p>
+<h2 id="移位"><a class="header" href="#移位">移位</a></h2>
+<p><code>&lt;&lt;</code> 和 <code>&gt;&gt;</code> 按 <code>usize</code> 值移位。左移使数值增长；右移使数值缩小，等价于向下取整除以 2 的幂。</p>
+<h2 id="将-ubig-用作位向量"><a class="header" href="#将-ubig-用作位向量">将 <code>UBig</code> 用作位向量</a></h2>
+<p>由于 <code>UBig</code> 具有无限宽度，它天然适合用作任意大的位集合：用 <code>set_bit(i)</code> 设置第 <code>i</code> 位，用 <code>bit(i)</code> 测试它，用 <code>bit_len()</code> 读取范围。</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use dashu::base::BitTest;
+use dashu::integer::UBig;
+
+let mut bits = UBig::ZERO;
+bits.set_bit(0);
+bits.set_bit(100);
+assert!(bits.bit(0) &amp;&amp; bits.bit(100));
+assert!(!bits.bit(1));
+assert_eq!(bits.bit_len(), 101);
+<span class="boring">}</span></code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="数论运算"><a href="#数论运算" class="header">数论运算</a></h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<p><code>dashu-int</code> 提供最大公约数和模运算原语。</p>
+<h2 id="最大公约数"><a class="header" href="#最大公约数">最大公约数</a></h2>
+<p><code>Gcd</code> trait（来自 <code>dashu-base</code>）提供 <code>gcd</code>，<code>ExtendedGcd</code> 提供 <code>gcd_ext</code>，后者返回 <code>(gcd, x, y)</code>，满足 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4445em;"></span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">b</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop"><span style="margin-right:0.01389em;">g</span>cd</span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">b</span><span class="mclose">)</span></span></span></span>。</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use dashu::base::Gcd;
+use dashu::integer::UBig;
+
+let a = UBig::from(12u8);
+let b = UBig::from(8u8);
+assert_eq!((&amp;a).gcd(&amp;b), UBig::from(4u8));
+<span class="boring">}</span></code></pre>
+<h2 id="模运算"><a class="header" href="#模运算">模运算</a></h2>
+<p>对于针对固定模数的重复运算，可预计算一个 <code>ConstDivisor</code> 并将值约化为 <code>Reduced</code>。加法、减法、乘法、幂运算和求逆随后基于预计算的模数运行，结果以 <code>(mod N)</code> 形式输出。</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use dashu::integer::{UBig, fast_div::ConstDivisor};
+
+let ring = ConstDivisor::new(UBig::from(10000u32));
+let x = ring.reduce(12345);
+let y = ring.reduce(55443);
+assert_eq!(format!("{}", x - y), "6902 (mod 10000)");
+<span class="boring">}</span></code></pre>
+<h2 id="montgomery-约化器"><a class="header" href="#montgomery-约化器">Montgomery 约化器</a></h2>
+<p>对于<strong>奇数模数</strong>，<code>MontgomeryRepr</code> 提供 <a href="https://en.wikipedia.org/wiki/Montgomery_modular_multiplication">Montgomery 形式</a>模运算——是上述 Barrett 式 <code>ConstDivisor</code>/<code>Reduced</code> 的替代方案。模乘法是普通乘法后接一次 Montgomery 约化（REDC），而非除法，因此当 REDC 的代价低于除法时，它比 Barrett 更快。</p>
+<p>Montgomery 乘法、平方和幂运算在约 256–4096 位范围内优于 <code>Reduced</code>；超过约 8 kbits 时两者性能相当。<strong>对于求逆密集型工作负载，请优先使用 <code>Reduced</code></strong>——Montgomery 求逆必须先退出 Montgomery 形式、运行扩展最大公约数算法、再重新进入，而 <code>Reduced</code> 可直接求逆。</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use dashu::integer::{UBig, monty::MontgomeryRepr};
+
+// 一个 Mersenne 素数（奇数）。
+let p = UBig::from(2u8).pow(607) - UBig::ONE;
+let ring = MontgomeryRepr::new(p.clone());
+
+// 将值约化为 Montgomery 形式，然后进行模乘 / 平方 / 幂运算
+let a = ring.reduce(123);
+assert_eq!(a.pow(&amp;(p - UBig::ONE)), ring.reduce(1)); // Fermat: a^(p-1) = 1 (mod p)
+<span class="boring">}</span></code></pre>
+<p><code>MontgomeryRepr::new(m)</code> 要求 <code>m</code> 为奇数；<code>ring.reduce(x)</code> 将 <code>x</code> 转换为 Montgomery 形式，得到的 <code>Montgomery</code> 值支持 <code>+</code>、<code>-</code>、<code>*</code>、<code>.sqr()</code>、<code>.pow(&amp;exp)</code> 和 <code>.inv()</code>。</p>
+<h2 id="丢番图逼近"><a class="header" href="#丢番图逼近">丢番图逼近</a></h2>
+<p>实数的有理逼近——容差范围内的最简有理数、连分数——位于 <code>RBig</code> 上；关于 <code>simplest_in</code> / <code>nearest_in</code>，请参见<a href="#转换到-rbig">类型转换</a>。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="python-绑定"><a href="#python-绑定" class="header">Python 绑定</a></h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h2 id="概述"><a class="header" href="#概述">概述</a></h2>
+<p><strong><code>dashu-python</code></strong> Rust crate（位于 <a href="https://github.com/cmpute/dashu">dashu</a> 工作区的 <code>python/</code> 目录中）是 Python 绑定的源码——即暴露 dashu 数值类型为原生扩展的 <a href="https://pyo3.rs">PyO3</a> 胶水代码。<a href="https://pypi.org/project/dashu-rs/">PyPI</a> 上的 <strong><code>dashu-rs</code></strong> 包是该 crate 的预构建、可通过 pip 安装的发行版：<code>pip install dashu-rs</code> 会获取编译好的 wheel，因此终端用户无需 Rust 或 dashu 源码树。导入的 Python 模块名为 <code>dashu</code>（例如 <code>from dashu import UBig</code>）。</p>
+<h2 id="安装"><a class="header" href="#安装">安装</a></h2>
+<pre><code class="language-sh">pip install dashu-rs
+</code></pre>
+<p><code>dashu-rs</code> 是 <a href="https://pypi.org/project/dashu-rs/">PyPI</a> 上的独立 wheel 包——
+无需 Rust 工具链或编译器。它提供一个原生的 <code>dashu</code> 模块：</p>
+<pre><code class="language-python">from dashu import UBig, IBig, RBig, FBig, DBig, CBig
+</code></pre>
+<h2 id="类型"><a class="header" href="#类型">类型</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>类型</th><th>底层实现</th><th>基数 / 舍入</th></tr>
+</thead>
+<tbody>
+<tr><td><code>UBig</code>、<code>IBig</code></td><td>任意精度整数</td><td>无符号 / 有符号</td></tr>
+<tr><td><code>RBig</code></td><td>任意精度有理数</td><td>精确的 <code>numerator / denominator</code></td></tr>
+<tr><td><code>FBig</code></td><td>任意精度浮点数</td><td>基数 2，舍入模式 <code>Zero</code></td></tr>
+<tr><td><code>DBig</code></td><td>任意精度浮点数</td><td>基数 10，舍入模式 <code>HalfAway</code>（十进制）</td></tr>
+<tr><td><code>CBig</code></td><td>任意精度复数</td><td>基数 2</td></tr>
+</tbody>
+</table>
+</div>
+<p>所有类型都是 <code>Send</code> + <code>Sync</code>（兼容自由线程的 Python）。构造函数既接受原生 Python 数值，也接受字符串：</p>
+<pre><code class="language-python">UBig(144)              # 整数
+FBig(1.5)              # 浮点数（使用模块默认精度）
+DBig("1.23")           # 十进制字符串
+RBig(Fraction(1, 3))   # fractions.Fraction
+CBig(3.0, 4.0)         # (实部, 虚部)
+</code></pre>
+<h2 id="运算"><a class="header" href="#运算">运算</a></h2>
+<p>算术运算、比较以及 <code>bool()</code> 都接受任意 Python 数值（跨类型分派），因此混合操作数可以直接使用：</p>
+<pre><code class="language-python">UBig(2) + 3 == 5
+FBig(1.5) * 2 == FBig(3.0)
+UBig(17) // 5 == 3
+divmod(UBig(17), 5) == (UBig(3), UBig(2))
+</code></pre>
+<ul>
+<li><strong>整数</strong>：<code>+ - * / // % **</code>、比较、原地运算、位操作
+（<code>&amp; | ^ &lt;&lt; &gt;&gt;</code>）、求根（<code>sqrt</code>/<code>cbrt</code>/<code>nth_root</code>）、<code>gcd</code>/<code>gcd_ext</code>、<code>ilog</code>、
+位谓词，以及 <code>to_words</code>/<code>to_chunks</code>/<code>to_bytes</code>。</li>
+<li><strong>浮点数 / Decimal</strong>：算术、比较、舍入（<code>trunc</code>/<code>floor</code>/<code>ceil</code>/
+<code>round</code>/<code>fract</code>）、精度（<code>precision</code>/<code>with_precision</code>）、超越函数，
+以及转换 <code>to_decimal</code>/<code>to_binary</code>/<code>to_rational</code>/<code>to_int</code>。</li>
+<li><strong>有理数</strong>：算术、<code>numerator</code>/<code>denominator</code>、舍入、<code>sqr</code>/<code>pow</code>、<code>to_float</code>。</li>
+<li><strong>复数</strong>：算术、<code>real</code>/<code>imag</code>、<code>conj</code>/<code>proj</code>/<code>norm</code>/<code>abs</code>/<code>arg</code>，
+以及超越函数（<code>sin</code>/<code>cos</code>/<code>exp</code>/<code>ln</code>/<code>sqrt</code>/…）。</li>
+</ul>
+<p>超越函数<strong>不会 panic</strong>：定义域错误抛出 <code>ValueError</code>，<code>0/0</code> 等不定形式抛出
+<code>ZeroDivisionError</code>，上溢/下溢则产生带符号的无穷或零。它们共享一个模块级的常数缓存
+（<code>dashu.Cache</code>），因此在不断提高精度的情况下重复调用时会复用预先计算的常数。</p>
+<p>模块级的 <code>math</code> API 镜像了常见函数——<code>dashu.sin</code>、<code>dashu.sqrt</code>、
+<code>dashu.exp</code>、<code>dashu.gcd</code>、<code>dashu.lcm</code>……——同样接受普通 Python 数值。</p>
+<h2 id="精度"><a class="header" href="#精度">精度</a></h2>
+<p><code>FBig</code> 和 <code>CBig</code> 是<strong>二进制</strong>（基数 2）的——精度按<strong>位</strong>计数。<code>DBig</code> 是
+<strong>十进制</strong>（基数 10）的——精度按<strong>十进制数位</strong>计数（1 个十进制数位
+≈ 3.32 位）。</p>
+<p>一个数值的精度取决于它的构造方式：</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>输入</th><th><code>FBig</code> / <code>CBig</code></th><th><code>DBig</code></th></tr>
+</thead>
+<tbody>
+<tr><td><code>int</code></td><td>精确（该整数的位长度）</td><td>字面量的数位</td></tr>
+<tr><td><code>float</code> / <code>complex</code></td><td>模块默认值（见下文）</td><td>该浮点数的有效十进制数位</td></tr>
+<tr><td><code>str</code></td><td>字符串自身的数位</td><td>字符串自身的数位</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong><code>FBig</code>/<code>CBig</code> 默认值。</strong> <code>float</code>/<code>complex</code> 输入按模块默认值构造，默认值为
+f64 的 53 位。用 <code>dashu.get_precision()</code> 读取，用
+<code>dashu.set_precision(bits)</code> 设置（返回之前的值）；该默认值也适用于整数与浮点数混合的
+算术运算。整数输入<em>不受</em>影响——<code>FBig(2)</code> 仍保持精确的 2 位，因此要套用默认值请写
+<code>FBig(2.0)</code>。</p>
+<pre><code class="language-python">dashu.set_precision(100)
+FBig(1.5).precision()    # 100   (float → 默认值)
+FBig(2).precision()      # 2     (int → 精确，不受影响)
+FBig(2.0).precision()    # 100
+</code></pre>
+<p><strong><code>DBig</code> 没有模块默认值</strong>，但 <code>float</code> 输入本身就会落到一个合理的精度上
+——即该浮点数的有效十进制数位（能往返还原该 f64 的最短十进制表示），所以
+<code>DBig(12.345)</code> 的精度为 5，<code>DBig(0.1)</code> 的精度为 1。若要超过这一精度（例如
+超越函数需要比输入携带的更多数位），可以传入更长的字符串或调用 <code>.with_precision</code>。对于
+这两种类型，<code>.with_precision(n)</code> 都会覆盖单个数值的精度（<code>FBig</code>/<code>CBig</code> 单位为位，
+<code>DBig</code> 单位为十进制数位），而超越函数在该数值的精度下运行：</p>
+<pre><code class="language-python">DBig(2).with_precision(50).ln()                   # 50 个十进制数位
+FBig(2.0).with_precision(200).exp().precision()    # 200 位
+</code></pre>
+<h2 id="格式化"><a class="header" href="#格式化">格式化</a></h2>
+<p><code>format()</code> / f-string 遵循完整的 Python 格式化迷你语言：</p>
+<pre><code class="language-python">format(UBig(255), "#x")                           # '0xff'
+format(UBig(10**9), ",")                           # '1,000,000,000'
+format(FBig(2).with_precision(200).exp(), ".20e")  # '7.38905609893065022723e+00'
+format(DBig("1.5"), ".3e")                         # '1.500e+00'
+format(RBig.from_parts(1, 3), ".4f")               # '0.3333'
+format(CBig(3.0, 4.0), ".2f")                      # '(3.00+4.00j)'
+</code></pre>
+<ul>
+<li><strong>整数</strong>委托给 Python 的 <code>int</code>，因此所有展示类型都可用（<code>b</code>/<code>o</code>/<code>d</code>/
+<code>x</code>/<code>X</code>/<code>c</code>/<code>n</code>），并支持符号、宽度、填充、零填充和分组——且无精度损失。</li>
+<li><strong>浮点数</strong>（<code>FBig</code>/<code>DBig</code>）支持 <code>e</code>/<code>E</code>/<code>f</code>/<code>g</code>，并支持精度、符号、宽度、对齐、
+填充、零填充和分组。未显式指定精度时，会显示全部有效数位（用 <code>.6e</code> 可得到
+固定的 6 位默认值）。</li>
+<li><strong><code>FBig</code> 的基数为 2</strong>，因此其默认的 <code>str</code>/<code>format</code> 以及 <code>'a'</code>/<code>'A'</code> 类型以
+<strong>十六进制</strong>打印——无损、无需基数转换，例如 <code>str(FBig(1.5)) == '0x3p-1'</code>。
+十进制展示（<code>'e'</code>/<code>'f'</code>/<code>'g'</code>）会转换为基数 10。<code>DBig</code> 以十进制打印。</li>
+<li><strong><code>RBig</code></strong> 默认输出精确的分数形式，例如 <code>str(RBig(1) / 3) == '1/3'</code>。</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="常见问题"><a href="#常见问题" class="header">常见问题</a></h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h2 id="为什么这个库叫-dashu"><a class="header" href="#为什么这个库叫-dashu">为什么这个库叫 <code>dashu</code>？</a></h2>
+<p><code>dashu</code> 是“大数“（“dà shù”）的拼音罗马化。</p>
+<p align="center">
+  <img src="assets/dashu-logo.png" alt="dashu 标志：一棵风格化的榕树" width="200">
+</p>
+
+<p>标志是一棵风格化的<strong>榕树</strong>——“大树”（“dà shù”）的原型形象。这是一个双关：大树（<em>big tree</em>）和大数（<em>big number</em>，即库的名字）在普通话中是同音词，因此一棵大树在视觉上代表了名字背后的“大数“。下垂的线条是榕树标志性的<a href="https://en.wikipedia.org/wiki/Aerial_root">气根</a>。</p>
+<h2 id="为什么要使用-dashu"><a class="header" href="#为什么要使用-dashu">为什么要使用 <code>dashu</code>？</a></h2>
+<p><code>dashu</code> 的目标是成为 GNU GMP + MPFR + MPC 的 Rust 原生、符合人体工程学的替代品：任意精度整数、浮点数、有理数和复数，全部用纯 Rust 实现，完整支持 <code>no_std</code>，并提供任意基数的浮点数。</p>
+<p>与其他 Rust crate 的对比：</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Crate</th><th>纯 Rust</th><th>完整 <code>no_std</code></th><th>整数</th><th>浮点数</th><th>有理数</th><th>复数</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>dashu</strong></td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+<tr><td><code>num-bigint</code></td><td>✓</td><td>✗</td><td>✓</td><td>✗</td><td>✗</td><td>✗</td></tr>
+<tr><td><code>ibig</code></td><td>✓</td><td>✓</td><td>✓</td><td>✗</td><td>✗</td><td>✗</td></tr>
+<tr><td><code>rug</code></td><td>✗ (C/GMP)</td><td>✗</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+</tbody>
+</table>
+</div>
+<p><code>malachite</code> 也提供以性能为导向的纯 Rust 整数和有理数，但是面向 <code>std</code> 的，并且不涵盖任意精度浮点数或复数。与 <code>rug</code> 不同，<code>dashu</code> 没有 C 依赖——它在 Rust 能运行的任何地方构建和运行，包括 <code>no_std</code> 目标。</p>
+<h2 id="已知限制"><a class="header" href="#已知限制">已知限制</a></h2>
+<ul>
+<li><strong>没有 NaN。</strong> 无效运算在便捷层会 panic，在上下文层返回 <code>Err(FpError)</code>。无穷是终态值，不是操作数——参见<a href="#标准合规性">标准合规性</a>。</li>
+<li><strong>近似正确舍入。</strong> 超越函数通过保护位策略在 1 ulp 以内舍入；保证正确的 Ziv 循环计划在后续版本中实现。</li>
+<li><strong>复数功能覆盖。</strong> <code>CBig</code> 提供域运算和基本超越函数；复数双曲函数、<code>fma</code> 及其他若干功能推迟到 0.5.x（参见 v0.5 版本说明）。</li>
+<li><strong>没有球体/区间运算。</strong> 与 MPC 的实验性 <code>mpcb_t</code>（复数球体）不同，<code>dashu</code> 不提供区间或球体类型。这是一个刻意的范围选择：球体运算在上游仍是实验性的，如果/当它稳定后，最好由一个<strong>独立的 crate</strong> 在 <code>dashu-float</code>/<code>dashu-cmplx</code> 之上提供，而非耦合到核心类型。</li>
+<li><strong>尚无 SIMD-FFT 乘法</strong>（计划在 v1.0 中实现）。</li>
+</ul>
+<h2 id="msrv-与特性策略"><a class="header" href="#msrv-与特性策略">MSRV 与特性策略</a></h2>
+<p>当前 MSRV 为 <strong>1.68</strong>。第三方集成遵循带版本号的特性约定：稳定的依赖使用 <code>xxx_vYY</code>（例如 <code>rand_v08</code>），并附带一个指向某一版本的未编号 <code>xxx</code> 别名；而不稳定的依赖将 <code>xxx</code> 别名指向最新版本。完整解释请参阅 <a href="#cargo-特性">Cargo 特性</a>。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="性能"><a href="#性能" class="header">性能</a></h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<p><code>dashu</code> 的目标是在保持可移植性的同时兼顾效率。默认情况下，它为每个目标架构的通用基线进行编译，因此依赖 <code>dashu</code> 的二进制文件可以在目标基线支持的任何 CPU 上运行。</p>
+<p>当大数运算位于热路径时，通过告诉编译器你实际运行的 CPU，可以获得显著的加速。</p>
+<h2 id="使用-target-cpunative-构建"><a class="header" href="#使用-target-cpunative-构建">使用 <code>target-cpu=native</code> 构建</a></h2>
+<p>影响最大的单一设置是使用宿主 CPU 的特性集进行编译：</p>
+<pre><code class="language-sh">RUSTFLAGS="-C target-cpu=native" cargo build --release
+</code></pre>
+<p>这让 LLVM 在<strong>整个</strong> crate 中使用 CPU 的完整指令集。例如在现代 x86-64 处理器上，它会启用 <code>bmi1</code>/<code>bmi2</code>（无标志位的 <code>mulx</code> 宽化乘法）、<code>adx</code>（<code>adcx</code>/<code>adox</code> 进位链）、<code>avx2</code> 和 <code>fma</code>，从而加速库中内部的乘法、平方和加法内核。这比 <code>dashu</code> 自身应用的运行时特性检测（见下文）严格更广泛且更快。</p>
+<p>要使此设置对项目永久生效，将其添加到 <code>.cargo/config.toml</code>：</p>
+<pre><code class="language-toml">[build]
+rustflags = ["-C", "target-cpu=native"]
+</code></pre>
+<blockquote>
+<p><strong>可移植性提示：</strong> 使用 <code>target-cpu=native</code>（或固定的 <code>x86-64-v3</code>）构建的二进制文件，在缺乏这些特性的旧 CPU 上会因非法指令而崩溃。请在部署到已知的新硬件上时使用此选项。
+<code>dashu</code> 本身作为发布的库，始终保持可移植的默认值——<code>target-cpu</code> 的选择权在你，即下游用户。</p>
+<p>如果你想在获得大部分加速的同时保持与较新硬件的兼容性，<code>-C target-cpu=x86-64-v3</code> 是一个好的固定替代方案（它假设 Haswell 时代 / Excavator 时代或更新的 CPU）。</p>
+</blockquote>
+<p>注意 <code>target-cpu=native</code> 针对的是<strong>构建机器</strong>的 CPU。如果你在一台主机上构建并部署到另一台机器上，请使用与部署硬件匹配的显式 <code>target-cpu</code>/<code>target-feature</code>。</p>
+<h2 id="运行时特性检测默认构建"><a class="header" href="#运行时特性检测默认构建">运行时特性检测（默认构建）</a></h2>
+<p>即使在默认的基线构建中，当宿主 CPU 支持时，<code>dashu-int</code> 中最热的基数情况乘法内核也会在运行时分派到 BMI2（<code>mulx</code>）实现（需要 <code>std</code> 特性）。因此，一个可移植的基线二进制文件在那些内核上已经能在现代 CPU 上利用 <code>mulx</code>，无需任何额外配置。</p>
+<p>不过，这只覆盖了选择加入运行时检测的特定内核。如上所述使用 <code>target-cpu=native</code> 构建会将优化应用到<strong>所有地方</strong>，因此它总是至少同样快，并且在你能控制构建时是推荐的选择。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="速查表"><a href="#速查表" class="header">速查表</a></h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<p>dashu 数值类型的速查参考。详细内容请参阅链接页面。</p>
+<h2 id="类型-1"><a class="header" href="#类型-1">类型</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>类型</th><th>Crate</th><th>描述</th><th>字面量</th></tr>
+</thead>
+<tbody>
+<tr><td><code>UBig</code></td><td>dashu-int</td><td>无符号整数</td><td><code>ubig!(123)</code></td></tr>
+<tr><td><code>IBig</code></td><td>dashu-int</td><td>有符号整数</td><td><code>ibig!(-123)</code></td></tr>
+<tr><td><code>FBig</code></td><td>dashu-float</td><td>浮点数，默认基数 2</td><td><code>fbig!(0x1.8)</code></td></tr>
+<tr><td><code>DBig</code></td><td>dashu-float</td><td>十进制浮点数，基数 10</td><td><code>dbig!(1.5)</code></td></tr>
+<tr><td><code>RBig</code></td><td>dashu-ratio</td><td>有理数</td><td><code>rbig!(22/7)</code></td></tr>
+<tr><td><code>CBig</code></td><td>dashu-cmplx</td><td>复数，默认基数 2</td><td><code>cbig!(1+2i)</code></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="构造"><a class="header" href="#构造">构造</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>方式</th><th>示例</th></tr>
+</thead>
+<tbody>
+<tr><td><code>From</code> 基本类型</td><td><code>UBig::from(123u32)</code></td></tr>
+<tr><td>解析</td><td><code>"12.34".parse::&lt;DBig&gt;()?</code></td></tr>
+<tr><td>从组成部分</td><td><code>RBig::from_parts(1.into(), 3u8.into())</code></td></tr>
+<tr><td>字面量宏</td><td><code>dbig!(1.5)</code>、<code>cbig!(1+2i)</code></td></tr>
+<tr><td>原始 word</td><td><code>UBig::from_words(&amp;[3, 2, 1])</code></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="转换"><a class="header" href="#转换">转换</a></h2>
+<p>无损失的转换使用 <code>From</code>；可能有损失的转换使用 <code>TryFrom</code>（任何精度丢失都会导致失败）。完整矩阵请参阅<a href="#类型转换">类型转换</a>。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>从 → 到</th><th>Trait</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td><code>UBig</code> → <code>IBig</code></td><td><code>From</code></td><td></td></tr>
+<tr><td><code>IBig</code> → <code>UBig</code></td><td><code>TryFrom</code></td><td>负数时失败</td></tr>
+<tr><td>整数 → <code>FBig</code></td><td><code>From</code></td><td>精度从绝对值推断</td></tr>
+<tr><td><code>FBig</code> → 整数</td><td><code>TryFrom</code></td><td>有小数或无穷时失败</td></tr>
+<tr><td><code>FBig</code> → <code>f32</code>/<code>f64</code></td><td><code>.to_f32()</code> / <code>.to_f64()</code></td><td>返回 <code>Rounded&lt;f*&gt;</code></td></tr>
+<tr><td><code>f32</code>/<code>f64</code> → <code>FBig</code></td><td><code>TryFrom</code></td><td>仅限基数 2</td></tr>
+<tr><td>实数 → <code>CBig</code></td><td><code>From</code></td><td>虚部为 <code>+0</code></td></tr>
+<tr><td><code>CBig</code> → <code>FBig</code></td><td><code>TryFrom</code></td><td>除非虚部为零，否则失败</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="运算符"><a class="header" href="#运算符">运算符</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>类型</th><th style="text-align: center"><code>+ - * /</code></th><th style="text-align: center"><code>%</code></th><th style="text-align: center"><code>&lt;&lt; &gt;&gt;</code></th><th style="text-align: center"><code>&amp; | ^ !</code></th></tr>
+</thead>
+<tbody>
+<tr><td><code>UBig</code> / <code>IBig</code></td><td style="text-align: center">✓</td><td style="text-align: center">✓</td><td style="text-align: center">✓</td><td style="text-align: center">✓</td></tr>
+<tr><td><code>FBig</code> / <code>DBig</code></td><td style="text-align: center">✓</td><td style="text-align: center">—</td><td style="text-align: center">—</td><td style="text-align: center">—</td></tr>
+<tr><td><code>RBig</code></td><td style="text-align: center">✓</td><td style="text-align: center">—</td><td style="text-align: center">—</td><td style="text-align: center">—</td></tr>
+<tr><td><code>CBig</code></td><td style="text-align: center">✓</td><td style="text-align: center">—</td><td style="text-align: center">—</td><td style="text-align: center">—</td></tr>
+</tbody>
+</table>
+</div>
+<p>所有类型都实现了 <code>Sum</code>/<code>Product</code>。对于 <code>FBig</code>/<code>DBig</code>，<code>Sum</code> 是正确舍入的（精确累加，一次舍入——而非 <code>+</code> 折叠）；对于 <code>FBig</code>/<code>DBig</code>/<code>CBig</code>，迭代器必须产生大数类型（或 <code>&amp;T</code>），而非基本类型。参见<a href="#聚合sum-和-product">基本运算</a>。</p>
+<h2 id="格式化-1"><a class="header" href="#格式化-1">格式化</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>类型</th><th><code>Display</code></th><th><code>Debug</code></th><th>其他</th></tr>
+</thead>
+<tbody>
+<tr><td><code>UBig</code>/<code>IBig</code></td><td>十进制</td><td>head‥tail（<code>#?</code> 可显示数位/位数）</td><td><code>Binary</code>/<code>Octal</code>/<code>Hex</code>、<code>in_radix(2..=36)</code></td></tr>
+<tr><td><code>FBig</code>/<code>DBig</code></td><td>位置记数</td><td><code>sig * base ^ exp</code></td><td><code>LowerExp</code>/<code>UpperExp</code></td></tr>
+<tr><td><code>RBig</code></td><td><code>num/den</code></td><td>—</td><td><code>in_radix</code>、<code>in_expanded</code></td></tr>
+<tr><td><code>CBig</code></td><td><code>a+bi</code></td><td><code>re:.. im:.. (prec: ..)</code></td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="关键方法"><a class="header" href="#关键方法">关键方法</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>方法</th><th>所属类型</th><th>返回</th></tr>
+</thead>
+<tbody>
+<tr><td><code>.exp()</code> / <code>.ln()</code> / <code>.sqrt()</code></td><td><code>FBig</code>、<code>CBig</code></td><td>同类型</td></tr>
+<tr><td><code>.sin()</code> / <code>.cos()</code> / <code>.tan()</code> / <code>.sin_cos()</code></td><td><code>FBig</code>、<code>CBig</code></td><td>同类型</td></tr>
+<tr><td><code>.powi(IBig)</code> / <code>.powf(&amp;Self)</code></td><td><code>FBig</code>、<code>CBig</code></td><td>同类型</td></tr>
+<tr><td><code>.with_precision(p)</code></td><td><code>FBig</code></td><td><code>Rounded&lt;FBig&gt;</code></td></tr>
+<tr><td><code>.to_decimal()</code> / <code>.to_binary()</code></td><td><code>FBig</code></td><td><code>Rounded&lt;DBig&gt;</code> / <code>Rounded&lt;FBig&gt;</code></td></tr>
+<tr><td><code>.conj()</code> / <code>.proj()</code></td><td><code>CBig</code></td><td><code>CBig</code></td></tr>
+<tr><td><code>.abs()</code> / <code>.arg()</code> / <code>.norm()</code></td><td><code>CBig</code></td><td><code>FBig</code></td></tr>
+<tr><td><code>.gcd(&amp;b)</code> / <code>.gcd_ext(&amp;b)</code></td><td><code>UBig</code>/<code>IBig</code>（<code>Gcd</code>）</td><td><code>Self</code> / <code>(gcd, x, y)</code></td></tr>
+</tbody>
+</table>
+</div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="标准合规性"><a href="#标准合规性" class="header">标准合规性</a></h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<p>本页面记录了 <code>dashu</code> 的数值类型在哪些方面符合相关标准——以及在哪里有意偏离。有两个方面：</p>
+<ul>
+<li><strong><code>dashu-float</code> 的 <code>FBig</code> 与 IEEE 754-2008</strong>——实数浮点模型。</li>
+<li><strong><code>dashu-cmplx</code> 的 <code>CBig</code> 与 C99 Annex G（IEC 60559 兼容复数运算）</strong>——复数模型，基于 <code>FBig</code> 构建，继承其有符号零 / 有符号无穷行为。</li>
+</ul>
+<p>共同的主线是：dashu 类型是<strong>任意精度</strong>的，因此固定位宽编码的相关问题（次正规数、NaN 负载、位布局）没有直接对应物。当无限精度使标准规则自然满足时，它们即被满足；当它们与任意精度 / 无 NaN 模型冲突时，偏离之处已被注明。</p>
+<h2 id="dashu-float-与-ieee-754-2008"><a class="header" href="#dashu-float-与-ieee-754-2008"><code>dashu-float</code> 与 IEEE 754-2008</a></h2>
+<p>此处的参考标准是 IEEE Std 754™-2008（ISO/IEC/IEEE 60559:2011）。</p>
+<h3 id="数据模型"><a class="header" href="#数据模型">数据模型</a></h3>
+<h4 id="第-3-节浮点格式"><a class="header" href="#第-3-节浮点格式">第 3 节——浮点格式</a></h4>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>IEEE 754 要求</th><th>合规性</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td>二进制和十进制格式</td><td>✅ 支持</td><td><code>FBig&lt;Rounding, 2&gt;</code>（二进制）和 <code>DBig</code> = <code>FBig&lt;HalfAway, 10&gt;</code>（十进制）。其他基数通过 <code>const BASE: Word</code> 参数支持。</td></tr>
+<tr><td>有限非零数</td><td>✅</td><td>表示为 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord">significand</span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8668em;"></span><span class="mord"><span class="mord text"><span class="mord">BASE</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8668em;"><span style="top:-3.1362em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">exponent</span></span></span></span></span></span></span></span></span></span></span></span></span>，尾数无界。</td></tr>
+<tr><td>有符号零（<code>±0</code>）</td><td>✅</td><td>通过指数哨兵值编码：<code>+0</code> ↔ 指数 <code>0</code>，<code>-0</code> ↔ 指数 <code>-1</code>。由算术运算、舍入和消去按 IEEE 754 产生。</td></tr>
+<tr><td>有符号无穷（<code>±∞</code>）</td><td>✅</td><td>通过指数哨兵值编码：<code>+∞</code> ↔ <code>isize::MAX</code>，<code>-∞</code> ↔ <code>isize::MIN</code>。</td></tr>
+<tr><td>NaN</td><td>❌ 偏离</td><td>无 NaN。无效运算在便捷层 panic，在 <code>Context</code> 层返回 <code>Err(FpError)</code>。</td></tr>
+<tr><td>次正规数</td><td>不适用</td><td>任意精度尾数消除了对次正规数的需要。任何非零数都是规范化的。</td></tr>
+<tr><td>固定位宽编码</td><td>不适用</td><td>无固定位宽；尾数是无界的 <code>IBig</code> 整数。</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="算术运算"><a class="header" href="#算术运算">算术运算</a></h3>
+<h4 id="第-5-节运算"><a class="header" href="#第-5-节运算">第 5 节——运算</a></h4>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>IEEE 754 要求</th><th>合规性</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td><code>±0</code> 比较相等</td><td>✅</td><td>在 <code>PartialEq</code>、<code>Ord</code>、<code>NumOrd</code> 中 <code>+0 == -0</code>。</td></tr>
+<tr><td><code>±∞</code> 同符号比较相等，与有限数有序比较</td><td>✅</td><td><code>+∞ == +∞</code>，<code>+∞ &gt; 有限数</code>，<code>-∞ &lt; 有限数</code>。</td></tr>
+<tr><td>上溢 → <code>±∞</code>（符号取决于舍入模式）</td><td>✅</td><td>在 <code>Repr</code> 层检测，在 <code>Context</code> 层返回 <code>Err(FpError::Overflow(sign))</code>，在 <code>FBig</code> 层转换为有符号无穷。</td></tr>
+<tr><td>下溢 → <code>±0</code></td><td>✅</td><td>与上溢机制相同。</td></tr>
+<tr><td><code>finite / ±0</code> → <code>±∞</code></td><td>✅</td><td>作为值产生（而非错误）。符号 = 操作数符号的异或。</td></tr>
+<tr><td><code>0 / 0</code> → NaN / 错误</td><td>⚠️ 部分合规</td><td>返回 <code>Err(FpError::Indeterminate)</code>。在 <code>FBig</code> 层 panic。</td></tr>
+<tr><td><code>∞ ± finite</code>、<code>∞ × finite</code> 等 → <code>±∞</code></td><td>❌ 偏离</td><td>无穷是终态：将它们送入算术运算会返回 <code>Err(FpError::InfiniteInput)</code>。对无穷的运算需要在 <code>Context</code> 层显式处理或使用特殊情况方法。</td></tr>
+<tr><td><code>exp(+∞)</code> = <code>+∞</code></td><td>✅</td><td><code>Context::exp</code> 接受无穷输入。</td></tr>
+<tr><td><code>exp(-∞)</code> = <code>+0</code></td><td>✅</td><td>同上。</td></tr>
+<tr><td><code>exp_m1(+∞)</code> = <code>+∞</code></td><td>✅</td><td></td></tr>
+<tr><td><code>exp_m1(-∞)</code> = <code>-1</code></td><td>✅</td><td></td></tr>
+<tr><td><code>ln(±0)</code> = <code>-∞</code></td><td>✅</td><td>作为值产生。</td></tr>
+<tr><td><code>sqrt(-0)</code> = <code>-0</code></td><td>✅</td><td></td></tr>
+<tr><td><code>sin(-0)</code> = <code>-0</code></td><td>✅</td><td></td></tr>
+<tr><td>向负舍入下的消去产生 <code>-0</code></td><td>✅</td><td>add.rs 中的 <code>cancel_zero</code> 在 <code>R::IS_ROUND_TOWARD_NEGATIVE</code> 时产生 <code>-0</code>。</td></tr>
+<tr><td>精确减法仅在定向舍入下消去为 <code>-0</code></td><td>✅</td><td>IEEE 754 §6.3：<code>(-3) + 3</code> 在 roundTiesToEven/Up 下为 <code>+0</code>，在 Down 下为 <code>-0</code>。</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="第-53-节舍入"><a class="header" href="#第-53-节舍入">第 5.3 节——舍入</a></h4>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>IEEE 754 要求</th><th>合规性</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td>舍入模式：roundTiesToEven、roundTiesToAway、roundTowardPositive、roundTowardNegative、roundTowardZero</td><td>✅</td><td>全部五种模式实现为 <code>HalfEven</code>、<code>HalfAway</code>、<code>Up</code>、<code>Down</code>、<code>Zero</code>。</td></tr>
+<tr><td>正确舍入到 1 ulp 以内</td><td>✅</td><td>所有运算保证 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.02778em;">error</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord">1</span><span class="mord text"><span class="mord"> ulp</span></span></span></span></span>。<code>Rounded</code> 类型区分精确与非精确结果。</td></tr>
+<tr><td>就近舍入保持零的符号</td><td>✅</td><td><code>rounded_to_repr</code> 在舍入将非零值折叠为零时保持输入符号。</td></tr>
+</tbody>
+</table>
+</div>
+<h4 id="第-56-节符号位运算"><a class="header" href="#第-56-节符号位运算">第 5.6 节——符号位运算</a></h4>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>IEEE 754 要求</th><th>合规性</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td><code>abs(x)</code> 始终非负</td><td>✅</td><td><code>FBig::abs()</code> 将 <code>-0</code> 转换为 <code>+0</code>。</td></tr>
+<tr><td><code>neg(x)</code> 翻转 <code>±0</code> 和 <code>±∞</code> 的符号</td><td>✅</td><td>通过 <code>negate_special_exponent</code> 正确翻转指数哨兵值。</td></tr>
+<tr><td><code>signum(±0)</code> = <code>+0</code></td><td>✅</td><td>对 <code>+0</code> 和 <code>-0</code> 均返回 <code>+0</code>（signum 折叠零的符号）。</td></tr>
+<tr><td><code>sign()</code> 区分 <code>+0</code> 与 <code>-0</code></td><td>✅</td><td><code>Repr::sign()</code> 对 <code>-0</code> 返回 <code>Negative</code>。</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="转换-1"><a class="header" href="#转换-1">转换</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>IEEE 754 要求</th><th>合规性</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td><code>f32</code>/<code>f64</code> 往返保持 <code>-0</code></td><td>✅</td><td><code>FBig::try_from(-0.0f64)</code> 产生 <code>-0</code>。</td></tr>
+<tr><td><code>f32</code>/<code>f64</code> 往返保持无穷</td><td>✅</td><td></td></tr>
+<tr><td>转换到 <code>f32</code>/<code>f64</code> 时上溢产生 <code>±∞</code></td><td>✅</td><td><code>into_f32_internal</code> / <code>into_f64_internal</code> 检查指数范围。</td></tr>
+<tr><td>转换到 <code>f32</code>/<code>f64</code> 时下溢产生 <code>±0</code></td><td>✅</td><td>同上。</td></tr>
+<tr><td>整数到浮点转换对可表示的整数是精确的</td><td>✅</td><td></td></tr>
+<tr><td>浮点到整数上溢饱和（按 Rust 惯例）</td><td>不适用</td><td>Rust 的 <code>TryFrom</code> 在上溢时返回错误；<code>ToPrimitive</code> 返回 <code>None</code>。</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="异常条件"><a class="header" href="#异常条件">异常条件</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>IEEE 754 要求</th><th>合规性</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td>无效运算 → NaN</td><td>❌</td><td>panic（<code>FBig</code>）或返回 <code>Err(FpError)</code>（<code>Context</code>）。</td></tr>
+<tr><td>除以零 → <code>±∞</code>（无陷阱）</td><td>✅</td><td></td></tr>
+<tr><td>上溢 → <code>±∞</code>（无陷阱）</td><td>✅</td><td>已检测并传播。</td></tr>
+<tr><td>下溢 → <code>±0</code>（无陷阱）</td><td>✅</td><td>同上。</td></tr>
+<tr><td>不精确标志</td><td>⚠️ 部分合规</td><td><code>Rounded&lt;T&gt;</code> 类型携带 <code>Exact</code>/<code>Inexact(T, Rounding)</code> 以指示是否发生了舍入，但没有粘性标志机制。</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="小结dashu-float"><a class="header" href="#小结dashu-float">小结（dashu-float）</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>类别</th><th>状态</th></tr>
+</thead>
+<tbody>
+<tr><td>有符号零</td><td>✅ 完全合规</td></tr>
+<tr><td>有符号无穷</td><td>✅ 完全合规</td></tr>
+<tr><td>上溢/下溢</td><td>✅ 完全合规</td></tr>
+<tr><td>定向舍入</td><td>✅ 完全合规</td></tr>
+<tr><td>NaN 处理</td><td>❌ panic（设计如此）</td></tr>
+<tr><td>算术中的无穷操作数</td><td>❌ 错误（设计如此——无穷是终态）</td></tr>
+<tr><td>次正规数</td><td>不适用（无界精度）</td></tr>
+<tr><td>异常标志</td><td>⚠️ Rounded 类型指示精确/非精确，无粘性标志</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="dashu-cmplx-与-c99-annex-g"><a class="header" href="#dashu-cmplx-与-c99-annex-g"><code>dashu-cmplx</code> 与 C99 Annex G</a></h2>
+<p><code>CBig</code> 是一对 <code>Repr</code> 部分（实部和虚部），共享一个精度和舍入模式。它以 C99 Annex G（IEC 60559 兼容复数运算）为目标来实现通用功能，为每个部分复用 <code>dashu-float</code> 的有符号零 / 有符号无穷 / 支割线机制。与 <code>FBig</code> 一样，<strong>没有 NaN</strong>：C99 中会产生复数 NaN 的情形在 <code>Context</code> 层映射为 <code>FpError</code>（在便捷层 panic）。</p>
+<h3 id="数据模型g2"><a class="header" href="#数据模型g2">数据模型（§G.2）</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>C99 Annex G 要求</th><th>合规性</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td>复数为有序的实部/虚部对</td><td>✅</td><td><code>CBig&lt;R, B&gt;</code> 在一个共享的 <code>Context</code> 上存储 <code>re</code> 和 <code>im</code>（<code>Repr</code>）。</td></tr>
+<tr><td>每部分有符号零（<code>±0</code>）</td><td>✅</td><td>继承自 <code>dashu-float</code>；虚部零的符号选择支割线的侧。</td></tr>
+<tr><td>每部分有符号无穷（<code>±∞</code>）</td><td>✅</td><td>每个部分可以独立为 <code>±∞</code>。</td></tr>
+<tr><td>单个复数无穷（黎曼点）</td><td>✅</td><td><code>proj</code> 将任何部分为无穷的值折叠为 <code>+∞ + i·0</code>；上溢使两个部分都变为 <code>+∞</code>。</td></tr>
+<tr><td>复数 NaN</td><td>❌ 偏离</td><td>无 NaN。产生 NaN 的情形映射为 <code>FpError</code>（<code>Context</code>）/ panic（便捷层）。</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="算术g5"><a class="header" href="#算术g5">算术（§G.5）</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>C99 Annex G 要求</th><th>合规性</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td><code>conj(z)</code> 翻转虚部符号（包括 <code>-0</code>、<code>±∞</code>）</td><td>✅</td><td>精确翻转虚部符号。</td></tr>
+<tr><td><code>proj(z)</code>：任何无穷 → <code>+∞ + i·0</code></td><td>✅</td><td>投影后的虚部零保持原始虚部的符号。</td></tr>
+<tr><td><code>∞·∞</code>、<code>finite·∞</code> → <code>∞</code></td><td>✅</td><td>产生黎曼无穷远点。</td></tr>
+<tr><td><code>0·∞</code> → NaN（C）</td><td>⚠️ 部分合规</td><td>返回 <code>Err(FpError::Indeterminate)</code>（无 NaN）。</td></tr>
+<tr><td><code>finite/0</code>、<code>∞/finite</code> → <code>∞</code></td><td>✅</td><td>黎曼无穷远点。</td></tr>
+<tr><td><code>0/0</code>、<code>∞/∞</code> → NaN（C）</td><td>⚠️ 部分合规</td><td>返回 <code>Err(FpError::Indeterminate)</code>。</td></tr>
+<tr><td><code>finite/∞</code>、<code>0/finite</code> → <code>0</code></td><td>✅</td><td></td></tr>
+<tr><td><code>1/0 → ∞</code>、<code>1/∞ → 0</code>（取倒数）</td><td>✅</td><td></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="超越函数与支割线g6"><a class="header" href="#超越函数与支割线g6">超越函数与支割线（§G.6）</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>C99 Annex G 要求</th><th>合规性</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td>支割线遵循 Kahan 有符号零模型</td><td>✅</td><td>例如 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mopen">(</span><span class="mord">−</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">±</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mop">ln</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">±</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">iπ</span></span></span></span>：虚部零的符号选择割线的侧。</td></tr>
+<tr><td><code>sqrt(+∞) = +∞</code></td><td>✅</td><td></td></tr>
+<tr><td><code>sqrt(-∞) = +0 + i·∞</code></td><td>✅</td><td></td></tr>
+<tr><td><code>exp(+∞) = +∞</code>、<code>exp(-∞) = +0</code></td><td>✅</td><td></td></tr>
+<tr><td><code>exp(0 + i·∞)</code> → NaN（C）</td><td>⚠️ 部分合规</td><td>返回 <code>Err(FpError::Indeterminate)</code>。</td></tr>
+<tr><td><code>log(0) = -∞</code>、<code>log(+∞) = +∞</code></td><td>✅</td><td></td></tr>
+<tr><td><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">ar<span style="margin-right:0.01389em;">g</span></span><span class="mopen">(</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∞</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">+</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mord">/2</span></span></span></span>、<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">ar<span style="margin-right:0.01389em;">g</span></span><span class="mopen">(</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∞</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mord">/2</span></span></span></span></td><td>✅</td><td><code>arg = atan2(im, re)</code>，复用 <code>dashu-float</code> 的 Annex G <code>atan2</code> 表。</td></tr>
+<tr><td><code>abs</code>/<code>hypot</code> 上溢安全模运算</td><td>✅</td><td>在 <code>dashu-float</code> 的 <code>hypot</code> 上的薄组合层。</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="异常条件-1"><a class="header" href="#异常条件-1">异常条件</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>C99 Annex G 要求</th><th>合规性</th><th>说明</th></tr>
+</thead>
+<tbody>
+<tr><td>无效/不定形式 → NaN</td><td>❌ 偏离</td><td>在 <code>Context</code> 层返回 <code>Err(FpError::{Indeterminate, InfiniteInput})</code>；在便捷层 panic。设计上无 NaN。</td></tr>
+<tr><td>定义域错误（如负数的偶数根、超出范围的逆三角函数）</td><td>❌ 偏离</td><td>返回 <code>Err(FpError::OutOfDomain)</code> / panic，而非 NaN 结果。</td></tr>
+<tr><td>每个分量独立按共享模式舍入</td><td>✅</td><td>每个轴近似正确舍入（保证正确的 Ziv 循环推迟到 0.5.x）。</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="小结dashu-cmplx"><a class="header" href="#小结dashu-cmplx">小结（dashu-cmplx）</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>类别</th><th>状态</th></tr>
+</thead>
+<tbody>
+<tr><td>每部分有符号零与无穷</td><td>✅ 完全合规</td></tr>
+<tr><td>黎曼点单无穷 / <code>proj</code></td><td>✅ 完全合规</td></tr>
+<tr><td>支割线（Kahan 有符号零模型）</td><td>✅ 完全合规</td></tr>
+<tr><td>算术与超越函数特殊值</td><td>⚠️ C99 中产生 NaN 的值以 <code>FpError</code> / panic 报告</td></tr>
+<tr><td>复数 NaN</td><td>❌ 设计上不存在</td></tr>
+</tbody>
+</table>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-c22b7243.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+
+    </div>
+    </body>
+</html>
