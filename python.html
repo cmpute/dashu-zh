@@ -35,10 +35,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75fbb288.js";
+            window.path_to_searchindex_js = "searchindex-9a40e853.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-cf5e5045.js"></script>
+        <script src="toc-670d7cd7.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -291,6 +291,75 @@ format(CBig(3.0, 4.0), ".2f")                      # '(3.00+4.00j)'
 十进制展示（<code>'e'</code>/<code>'f'</code>/<code>'g'</code>）会转换为基数 10。<code>DBig</code> 以十进制打印。</li>
 <li><strong><code>RBig</code></strong> 默认输出精确的分数形式，例如 <code>str(RBig(1) / 3) == '1/3'</code>。</li>
 </ul>
+<h2 id="跨类型比较"><a class="header" href="#跨类型比较">跨类型比较</a></h2>
+<p><code>dashu.compare(a, b)</code>、<code>dashu.min(a, b)</code> 和 <code>dashu.max(a, b)</code> 可以<strong>精确</strong>地比较任意两个
+Python 数字（原生 <code>int</code>/<code>float</code> 或任意 dashu 类型），其底层由 <code>num-order</code> crate 提供——比较
+过程绝不会经由有精度损失的原始 <code>float</code> 中转。这使得 <code>compare(UBig(2)**200, 1e60)</code> 是精确的，
+不像朴素的浮点转换：</p>
+<pre><code class="language-python">&gt;&gt;&gt; from dashu import compare, min, max, UBig
+&gt;&gt;&gt; compare(UBig(2)**200, 1e60)          # 精确，无精度损失
+1
+&gt;&gt;&gt; max(UBig(2)**100, 2.0)               # 返回较大的那个操作数，类型保持不变
+&lt;UBig 1267650600228229401496703205376 (digits: 1, bits: 101)&gt;
+</code></pre>
+<p><code>compare</code> 返回 <code>-1</code>、<code>0</code> 或 <code>1</code>；<code>min</code>/<code>max</code> 返回两个原始操作数之一（并保留其类型）。
+复数没有序关系，因此对复数进行比较会抛出 <code>TypeError</code>。</p>
+<h2 id="第三方集成"><a class="header" href="#第三方集成">第三方集成</a></h2>
+<p>以下子模块仅在构建 wheel 时启用了对应的 Cargo feature 时才会被编译进去（默认全部关闭）：</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Feature</th><th>子模块</th><th>功能</th></tr>
+</thead>
+<tbody>
+<tr><td><code>serde</code></td><td><code>dashu.serde</code></td><td>JSON 与二进制（反）序列化</td></tr>
+<tr><td><code>rand</code></td><td><code>dashu.rand</code></td><td>均匀随机数生成</td></tr>
+<tr><td><code>rkyv</code></td><td><code>dashu.rkyv</code></td><td>零拷贝二进制序列化</td></tr>
+<tr><td><code>zeroize</code></td><td><em>(方法)</em></td><td>每种类型上的 <code>.zeroize()</code></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="dashuserdefeature-serde"><a class="header" href="#dashuserdefeature-serde"><code>dashu.serde</code>（feature <code>serde</code>）</a></h3>
+<p>可将任意 dashu 类型序列化为 JSON（<code>to_json</code>）或紧凑二进制 postcard（<code>serialize</code>）；对应的
+反序列化函数把目标类型<em>类</em>作为第一个参数：</p>
+<pre><code class="language-python">&gt;&gt;&gt; from dashu import UBig, FBig, serde
+&gt;&gt;&gt; s = serde.to_json(FBig(1.5))
+&gt;&gt;&gt; s
+'"0x3p-1"'
+&gt;&gt;&gt; serde.from_json(FBig, s) == FBig(1.5)
+True
+&gt;&gt;&gt; data = serde.serialize(UBig(2)**100)  # 紧凑二进制
+&gt;&gt;&gt; serde.deserialize(UBig, data) == UBig(2)**100
+True
+</code></pre>
+<h3 id="dashurandfeature-rand"><a class="header" href="#dashurandfeature-rand"><code>dashu.rand</code>（feature <code>rand</code>）</a></h3>
+<p>为每种类型提供均匀生成器。所有函数都接受关键字参数（<code>ubig(bits=…)</code>、
+<code>fbig(precision=…)</code>、<code>rbig(max_denom_bits=…)</code>）；浮点/复数生成器默认使用模块配置的精度，
+并生成单位区间/单位正方形内的值：</p>
+<pre><code class="language-python">&gt;&gt;&gt; from dashu import rand, UBig, FBig
+&gt;&gt;&gt; rand.ubig(bits=128)        # 在 [0, 2^128) 上均匀
+&lt;UBig 332087112958751295523159223253302643116 (digits: 1, bits: 128)&gt;
+&gt;&gt;&gt; f = rand.fbig()            # 在 [0, 1) 上均匀
+&gt;&gt;&gt; 0 &lt;= f &lt; 1
+True
+&gt;&gt;&gt; rand.ibig(bits=8)          # 带符号，在 (-2^8, 2^8) 上均匀
+&lt;IBig 73 (digits: 1, bits: 7)&gt;
+</code></pre>
+<h3 id="dashurkyvfeature-rkyv"><a class="header" href="#dashurkyvfeature-rkyv"><code>dashu.rkyv</code>（feature <code>rkyv</code>）</a></h3>
+<p>零拷贝序列化——反序列化不会复制字节负载。格式是<strong>与架构相关</strong>的：由 <code>to_bytes</code> 生成的字节
+只在同一台机器上保证可读。<code>from_bytes</code> 不校验其输入；字节必须来自对相同类型的 <code>to_bytes</code>：</p>
+<pre><code class="language-python">&gt;&gt;&gt; from dashu import UBig, rkyv
+&gt;&gt;&gt; data = rkyv.to_bytes(UBig(12345))
+&gt;&gt;&gt; rkyv.from_bytes(UBig, data)
+&lt;UBig 12345 (digits: 1, bits: 14)&gt;
+</code></pre>
+<h3 id="zeroizefeature-zeroize"><a class="header" href="#zeroizefeature-zeroize">zeroize（feature <code>zeroize</code>）</a></h3>
+<p>每种类型都会获得一个 <code>.zeroize()</code> 方法，在值被释放之前覆写其底层内存（缓冲区清零）：</p>
+<pre><code class="language-python">&gt;&gt;&gt; v = UBig(12345)
+&gt;&gt;&gt; v.zeroize()   # 清空内部缓冲区
+&gt;&gt;&gt; v
+&lt;UBig 0 (digits: 1, bits: 1)&gt;
+</code></pre>
 
                     </main>
 

@@ -35,10 +35,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75fbb288.js";
+            window.path_to_searchindex_js = "searchindex-9a40e853.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-cf5e5045.js"></script>
+        <script src="toc-670d7cd7.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -206,6 +206,9 @@
 <li><code>CBig</code> = 实部：<code>FBig</code> + 虚部：<code>FBig</code>（结果精度取两者中的较大值）</li>
 </ul>
 </li>
+</ul>
+<p>对于 <code>RBig</code>，还有一个备选的 <code>from_parts_signed(numerator, denominator)</code>，它接受<strong>有符号</strong>的分母（<code>IBig</code>），因此符号可以放在任一分量上。</p>
+<ul>
 <li><code>::from_parts_const()</code>
 <ul>
 <li><code>IBig</code> = 符号：<code>Sign</code> + 绝对值：<code>DoubleWord</code></li>

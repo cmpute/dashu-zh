@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-75fbb288.js";
+            window.path_to_searchindex_js = "../searchindex-9a40e853.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-cf5e5045.js"></script>
+        <script src="../toc-670d7cd7.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -192,6 +192,33 @@ use dashu::integer::UBig;
 let a = UBig::from(12u8);
 let b = UBig::from(8u8);
 assert_eq!((&amp;a).gcd(&amp;b), UBig::from(4u8));
+<span class="boring">}</span></code></pre>
+<h2 id="精确除法"><a class="header" href="#精确除法">精确除法</a></h2>
+<p><code>DivExact</code> / <code>DivExactAssign</code> trait（经由 <code>dashu-base</code> 从 <code>num-modular</code> 重新导出，预计算类型为空 <code>()</code>）计算精确商：<code>div_exact</code> 消费被除数，在 <code>rhs</code> 整除时返回 <code>Some(self / rhs)</code>，否则返回 <code>None</code>；<code>div_exact_assign</code> 原位替换被除数，成功时返回 <code>true</code>（否则保持原值不变）。两者都需要额外传入 <code>&amp;()</code> 作为预计算参数。在 <code>UBig</code> 上，除以单字因子使用 Hensel（2-adic）除法，原位运行、无需临时分配。</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use dashu::base::{DivExact, DivExactAssign};
+use dashu::integer::UBig;
+
+let a = UBig::from(10u32).pow(8) * 7u32; // 700000000
+assert_eq!(a.clone().div_exact(UBig::from(10u32).pow(8), &amp;()), Some(UBig::from(7u32)));
+assert_eq!(a.div_exact(UBig::from(3u32), &amp;()), None); // 3 不能整除
+
+// 原位形式
+let mut b = UBig::from(10u32).pow(8) * 7u32;
+assert!(b.div_exact_assign(UBig::from(10u32).pow(8), &amp;()));
+assert_eq!(b, UBig::from(7u32));
+<span class="boring">}</span></code></pre>
+<h2 id="整除性与因子移除"><a class="header" href="#整除性与因子移除">整除性与因子移除</a></h2>
+<p><code>is_multiple_of(&amp;rhs)</code> 判断 <code>rhs</code> 是否恰好整除该值——比 <code>% rhs == 0</code> 更快。要剥离一个数的所有因子，可使用 <code>UBig::remove(&amp;mut self, factor)</code>：它除掉 <code>factor</code> 的每一次出现，并返回其指数（即当 <code>self = factor^k · rest</code> 时返回 <code>Some(k)</code>），当 <code>factor</code> 为 0、1 或 <code>self</code> 为 0 时返回 <code>None</code>。<code>remove_word</code> 是单字因子的特化版本。</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use dashu::integer::UBig;
+
+let mut a = UBig::from(8u32) * 3u32; // 24 = 2³ · 3
+assert_eq!(a.remove(&amp;UBig::from(2u32)), Some(3));
+assert_eq!(a, UBig::from(3u32));
+assert!(UBig::from(10u32).is_multiple_of(&amp;UBig::from(5u32)));
 <span class="boring">}</span></code></pre>
 <h2 id="模运算"><a class="header" href="#模运算">模运算</a></h2>
 <p>对于针对固定模数的重复运算，可预计算一个 <code>ConstDivisor</code> 并将值约化为 <code>Reduced</code>。加法、减法、乘法、幂运算和求逆随后基于预计算的模数运行，结果以 <code>(mod N)</code> 形式输出。</p>

@@ -35,10 +35,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75fbb288.js";
+            window.path_to_searchindex_js = "searchindex-9a40e853.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-cf5e5045.js"></script>
+        <script src="toc-670d7cd7.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -242,7 +242,7 @@
 </thead>
 <tbody>
 <tr><td>舍入模式：roundTiesToEven、roundTiesToAway、roundTowardPositive、roundTowardNegative、roundTowardZero</td><td>✅</td><td>全部五种模式实现为 <code>HalfEven</code>、<code>HalfAway</code>、<code>Up</code>、<code>Down</code>、<code>Zero</code>。</td></tr>
-<tr><td>正确舍入到 1 ulp 以内</td><td>✅</td><td>所有运算保证 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.02778em;">error</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord">1</span><span class="mord text"><span class="mord"> ulp</span></span></span></span></span>。<code>Rounded</code> 类型区分精确与非精确结果。</td></tr>
+<tr><td>正确舍入到 1 ulp 以内</td><td>✅</td><td>所有运算保证 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.02778em;">error</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord">1</span><span class="mord text"><span class="mord"> ulp</span></span></span></span></span>。算术、根号以及实超越函数（<code>exp</code>、<code>exp_m1</code>、<code>ln</code>、<code>ln_1p</code>、三角与双曲函数族、<code>hypot</code>、<code>powi</code>、<code>powf</code>）通过 Ziv 循环保证正确舍入；<code>dashu-cmplx</code> 的复数超越函数（<code>exp</code>、<code>log</code>、<code>powf</code>、<code>powi</code>、<code>sin</code>/<code>cos</code>/<code>tan</code>/<code>sin_cos</code>、<code>asin</code>/<code>acos</code>/<code>atan</code>、双曲函数 <code>sinh</code>/<code>cosh</code>/<code>tanh</code>/<code>sinh_cosh</code> 与 <code>asinh</code>/<code>acosh</code>/<code>atanh</code>、<code>sqrt</code>）经由其自身的 Ziv 循环正确舍入，同时认证实部与虚部（<code>asin</code>/<code>acos</code> 采用因式分解的 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mclose">)</span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mclose">)</span></span></span></span>，在奇点 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">±</span><span class="mord">1</span></span></span></span> 处亦保持精度；双曲函数族通过精确的旋转恒等式 <code>sinh z = -i\sin(iz)</code> 等复用圆函数，继承其认证）。<code>Rounded</code> 类型区分精确与非精确结果。</td></tr>
 <tr><td>就近舍入保持零的符号</td><td>✅</td><td><code>rounded_to_repr</code> 在舍入将非零值折叠为零时保持输入符号。</td></tr>
 </tbody>
 </table>
@@ -312,6 +312,7 @@
 </div>
 <h2 id="dashu-cmplx-与-c99-annex-g"><a class="header" href="#dashu-cmplx-与-c99-annex-g"><code>dashu-cmplx</code> 与 C99 Annex G</a></h2>
 <p><code>CBig</code> 是一对 <code>Repr</code> 部分（实部和虚部），共享一个精度和舍入模式。它以 C99 Annex G（IEC 60559 兼容复数运算）为目标来实现通用功能，为每个部分复用 <code>dashu-float</code> 的有符号零 / 有符号无穷 / 支割线机制。与 <code>FBig</code> 一样，<strong>没有 NaN</strong>：C99 中会产生复数 NaN 的情形在 <code>Context</code> 层映射为 <code>FpError</code>（在便捷层 panic）。</p>
+<p><strong>无穷是终端值</strong>，与 <code>dashu-float</code> 一致。复数无穷是单一的黎曼点 <code>+∞ + i·0</code>；它由有限输入“爆炸”产生（<code>z/0</code>、<code>exp(+∞)</code>、上溢），但<strong>绝不被接受为操作数</strong>——任何接收无穷操作数的算术或超越运算都以 <code>FpError::InfiniteInput</code> 拒绝（在便捷层 panic）。这与 C99 Annex G 刻意不同：Annex G 承认逐部分无穷并为其定义结果（<code>∞·∞ = ∞</code>、<code>∞/∞ = NaN</code> 等）；dashu 则拒绝整类情形。已实现的特殊值矩阵见 <a href="./types.html#复数运算中的无穷">复数运算中的无穷</a>。</p>
 <h3 id="数据模型g2"><a class="header" href="#数据模型g2">数据模型（§G.2）</a></h3>
 <div class="table-wrapper">
 <table>
@@ -321,8 +322,8 @@
 <tbody>
 <tr><td>复数为有序的实部/虚部对</td><td>✅</td><td><code>CBig&lt;R, B&gt;</code> 在一个共享的 <code>Context</code> 上存储 <code>re</code> 和 <code>im</code>（<code>Repr</code>）。</td></tr>
 <tr><td>每部分有符号零（<code>±0</code>）</td><td>✅</td><td>继承自 <code>dashu-float</code>；虚部零的符号选择支割线的侧。</td></tr>
-<tr><td>每部分有符号无穷（<code>±∞</code>）</td><td>✅</td><td>每个部分可以独立为 <code>±∞</code>。</td></tr>
-<tr><td>单个复数无穷（黎曼点）</td><td>✅</td><td><code>proj</code> 将任何部分为无穷的值折叠为 <code>+∞ + i·0</code>；上溢使两个部分都变为 <code>+∞</code>。</td></tr>
+<tr><td>每部分有符号无穷（<code>±∞</code>）</td><td>✅</td><td>每个部分可以独立为 <code>±∞</code>；这样的值是<em>终端</em>输出，而非操作数。</td></tr>
+<tr><td>单个复数无穷（黎曼点）</td><td>✅</td><td><code>proj</code> 将任何部分为无穷的值折叠为 <code>+∞ + i·0</code>；上溢产生 <code>+∞ + i·0</code>。</td></tr>
 <tr><td>复数 NaN</td><td>❌ 偏离</td><td>无 NaN。产生 NaN 的情形映射为 <code>FpError</code>（<code>Context</code>）/ panic（便捷层）。</td></tr>
 </tbody>
 </table>
@@ -334,14 +335,17 @@
 <tr><th>C99 Annex G 要求</th><th>合规性</th><th>说明</th></tr>
 </thead>
 <tbody>
-<tr><td><code>conj(z)</code> 翻转虚部符号（包括 <code>-0</code>、<code>±∞</code>）</td><td>✅</td><td>精确翻转虚部符号。</td></tr>
+<tr><td><code>conj(z)</code> 翻转虚部符号（包括 <code>-0</code>、<code>±∞</code>）</td><td>✅</td><td>精确翻转虚部符号（终端值的符号翻转，同 <code>dashu-float</code> 的 <code>Neg</code>）。</td></tr>
 <tr><td><code>proj(z)</code>：任何无穷 → <code>+∞ + i·0</code></td><td>✅</td><td>投影后的虚部零保持原始虚部的符号。</td></tr>
-<tr><td><code>∞·∞</code>、<code>finite·∞</code> → <code>∞</code></td><td>✅</td><td>产生黎曼无穷远点。</td></tr>
-<tr><td><code>0·∞</code> → NaN（C）</td><td>⚠️ 部分合规</td><td>返回 <code>Err(FpError::Indeterminate)</code>（无 NaN）。</td></tr>
-<tr><td><code>finite/0</code>、<code>∞/finite</code> → <code>∞</code></td><td>✅</td><td>黎曼无穷远点。</td></tr>
-<tr><td><code>0/0</code>、<code>∞/∞</code> → NaN（C）</td><td>⚠️ 部分合规</td><td>返回 <code>Err(FpError::Indeterminate)</code>。</td></tr>
-<tr><td><code>finite/∞</code>、<code>0/finite</code> → <code>0</code></td><td>✅</td><td></td></tr>
-<tr><td><code>1/0 → ∞</code>、<code>1/∞ → 0</code>（取倒数）</td><td>✅</td><td></td></tr>
+<tr><td><code>∞·∞</code>、<code>finite·∞</code>、<code>∞·finite</code> → <code>∞</code>（C）</td><td>❌ 偏离</td><td>无穷是终端值：任何无穷<em>操作数</em>都以 <code>FpError::InfiniteInput</code> 拒绝（便捷层 panic）。</td></tr>
+<tr><td><code>0·∞</code> → NaN（C）</td><td>❌ 偏离</td><td><code>FpError::InfiniteInput</code>（在到达 <code>0·∞</code> 之前就拒绝无穷操作数）。</td></tr>
+<tr><td><code>finite/0</code>、<code>z/0</code>（有限 <code>z ≠ 0</code>）→ <code>∞</code></td><td>✅</td><td>有限被除数除以零产生黎曼点 <code>+∞ + i·0</code>。</td></tr>
+<tr><td><code>∞/finite</code>、<code>∞/∞</code>（C）</td><td>❌ 偏离</td><td>以 <code>FpError::InfiniteInput</code> 拒绝（∞ 是终端值）。</td></tr>
+<tr><td><code>finite/∞</code> → <code>0</code>（C）</td><td>❌ 偏离</td><td>以 <code>FpError::InfiniteInput</code> 拒绝（无穷除数也是终端值）。</td></tr>
+<tr><td><code>0/finite</code> → <code>0</code></td><td>✅</td><td></td></tr>
+<tr><td><code>0/0</code> → NaN（C）</td><td>⚠️ 部分合规</td><td><code>Err(FpError::Indeterminate)</code>（无 NaN）。</td></tr>
+<tr><td><code>1/0 → ∞</code></td><td>✅</td><td></td></tr>
+<tr><td><code>1/∞ → 0</code>（C）</td><td>❌ 偏离</td><td>以 <code>FpError::InfiniteInput</code> 拒绝。</td></tr>
 </tbody>
 </table>
 </div>
@@ -353,11 +357,11 @@
 </thead>
 <tbody>
 <tr><td>支割线遵循 Kahan 有符号零模型</td><td>✅</td><td>例如 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mopen">(</span><span class="mord">−</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">±</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mop">ln</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">±</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">iπ</span></span></span></span>：虚部零的符号选择割线的侧。</td></tr>
-<tr><td><code>sqrt(+∞) = +∞</code></td><td>✅</td><td></td></tr>
-<tr><td><code>sqrt(-∞) = +0 + i·∞</code></td><td>✅</td><td></td></tr>
-<tr><td><code>exp(+∞) = +∞</code>、<code>exp(-∞) = +0</code></td><td>✅</td><td></td></tr>
-<tr><td><code>exp(0 + i·∞)</code> → NaN（C）</td><td>⚠️ 部分合规</td><td>返回 <code>Err(FpError::Indeterminate)</code>。</td></tr>
-<tr><td><code>log(0) = -∞</code>、<code>log(+∞) = +∞</code></td><td>✅</td><td></td></tr>
+<tr><td><code>sqrt(+∞) = +∞</code>、<code>sqrt(-∞) = +0 + i·∞</code>（C）</td><td>❌ 偏离</td><td>以 <code>FpError::InfiniteInput</code> 拒绝（与同样拒绝的 <code>dashu-float</code> 的 <code>sqrt</code> 一致）。</td></tr>
+<tr><td><code>exp(+∞) = +∞</code>、<code>exp(-∞) = +0</code></td><td>✅</td><td><code>dashu-float</code> 的 <code>exp</code> 处理无穷实输入，故 <code>exp(+∞ + i·0) = +∞ + i·0</code>、<code>exp(-∞ + i·0) = +0</code>。</td></tr>
+<tr><td><code>exp(0 + i·∞)</code> → NaN（C）</td><td>⚠️ 部分合规</td><td><code>Err(FpError::Indeterminate)</code>。</td></tr>
+<tr><td><code>log(0) = -∞</code></td><td>✅</td><td></td></tr>
+<tr><td><code>log(+∞) = +∞</code>（C）</td><td>❌ 偏离</td><td>以 <code>FpError::InfiniteInput</code> 拒绝（与同样拒绝的 <code>dashu-float</code> 的 <code>ln</code> 一致）。</td></tr>
 <tr><td><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">ar<span style="margin-right:0.01389em;">g</span></span><span class="mopen">(</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∞</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">+</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mord">/2</span></span></span></span>、<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">ar<span style="margin-right:0.01389em;">g</span></span><span class="mopen">(</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∞</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mord">/2</span></span></span></span></td><td>✅</td><td><code>arg = atan2(im, re)</code>，复用 <code>dashu-float</code> 的 Annex G <code>atan2</code> 表。</td></tr>
 <tr><td><code>abs</code>/<code>hypot</code> 上溢安全模运算</td><td>✅</td><td>在 <code>dashu-float</code> 的 <code>hypot</code> 上的薄组合层。</td></tr>
 </tbody>
@@ -372,7 +376,7 @@
 <tbody>
 <tr><td>无效/不定形式 → NaN</td><td>❌ 偏离</td><td>在 <code>Context</code> 层返回 <code>Err(FpError::{Indeterminate, InfiniteInput})</code>；在便捷层 panic。设计上无 NaN。</td></tr>
 <tr><td>定义域错误（如负数的偶数根、超出范围的逆三角函数）</td><td>❌ 偏离</td><td>返回 <code>Err(FpError::OutOfDomain)</code> / panic，而非 NaN 结果。</td></tr>
-<tr><td>每个分量独立按共享模式舍入</td><td>✅</td><td>每个轴近似正确舍入（保证正确的 Ziv 循环推迟到 0.5.x）。</td></tr>
+<tr><td>每个分量独立按共享模式舍入</td><td>✅</td><td>每个轴经由同时认证两部分的 Ziv 循环正确舍入，与 <code>dashu-float</code> 的实超越函数一致（<code>asin</code>/<code>acos</code> 采用因式分解的 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mclose">)</span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mclose">)</span></span></span></span>，在奇点 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">±</span><span class="mord">1</span></span></span></span> 处亦保持精度）。</td></tr>
 </tbody>
 </table>
 </div>
@@ -386,7 +390,7 @@
 <tr><td>每部分有符号零与无穷</td><td>✅ 完全合规</td></tr>
 <tr><td>黎曼点单无穷 / <code>proj</code></td><td>✅ 完全合规</td></tr>
 <tr><td>支割线（Kahan 有符号零模型）</td><td>✅ 完全合规</td></tr>
-<tr><td>算术与超越函数特殊值</td><td>⚠️ C99 中产生 NaN 的值以 <code>FpError</code> / panic 报告</td></tr>
+<tr><td>算术与超越函数特殊值</td><td>⚠️ 偏离 —— 无穷<em>操作数</em>被拒绝（<code>FpError::InfiniteInput</code> / panic）而非按 C99 求值；C99 中产生 NaN 的值以 <code>FpError</code> / panic 报告</td></tr>
 <tr><td>复数 NaN</td><td>❌ 设计上不存在</td></tr>
 </tbody>
 </table>

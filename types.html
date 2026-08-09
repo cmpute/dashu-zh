@@ -35,10 +35,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75fbb288.js";
+            window.path_to_searchindex_js = "searchindex-9a40e853.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-cf5e5045.js"></script>
+        <script src="toc-670d7cd7.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -208,6 +208,22 @@
 <h3 id="cbig-的内存布局"><a class="header" href="#cbig-的内存布局"><code>CBig</code> 的内存布局</a></h3>
 <p><code>CBig</code>（位于 <code>dashu-cmplx</code> crate 中）镜像了 <code>FBig</code> 的 <code>Repr</code>+<code>Context</code> 布局，并将其推广到两个部分：一个 <code>CBig&lt;R, B&gt;</code> 实例持有两个 <code>Repr&lt;B&gt;</code> 部分——实部 <code>re</code> 和虚部 <code>im</code>——它们共享<strong>同一个</strong> <code>Context&lt;R&gt;</code>。只存一个上下文（而不是包装两个各自携带上下文的 <code>FBig</code>），使得“精度一致”这一不变量成为<em>物理层面</em>的保证：精度槽只有一个，<code>re</code> 和 <code>im</code> 在结构上就不可能不一致。每个部分各自保存自己的尾数长度；共享的上下文只保存精度上限和唯一的舍入模式，并独立地作用于每个部分。与 <code>FBig</code> 一样，上下文是 <code>Copy</code> 的，而尾数在堆上分配，因此 <code>CBig</code> 是 <code>Clone</code> 但不是 <code>Copy</code>。</p>
 <p>由于两个部分都是 <code>Repr</code>，<code>CBig</code> 原封不动地复用了 <code>dashu-float</code> 的有符号零 / 有符号无穷 / 支割线（branch cut）机制。它遵循 C99 Annex G / Kahan 模型（参见<a href="./compliance.html">标准合规性</a>），并且与 <code>FBig</code> 一样<strong>没有 NaN</strong>——C99 中那些会产生复数 NaN 的情形，在上下文层会以 <code>FpError</code> 的形式上报。<code>CBig::from_parts(re, im)</code> 会取两个操作数上下文中较大的那个。构造、运算、超越函数和 I/O 的相关内容，分别在<a href="./construct.html">构造与析构</a>、<a href="./convert.html">类型转换</a>和<a href="./ops/index.html">运算</a>中介绍。</p>
+<h3 id="复数运算中的无穷"><a class="header" href="#复数运算中的无穷">复数运算中的无穷</a></h3>
+<p><code>CBig</code> 中的复数无穷是<strong>单一的黎曼点</strong> <code>+∞ + i·0</code>，并且——与 <code>FBig</code> 的 <code>±∞</code> 完全一样——它是<strong>终端值</strong>：可以由有限输入“爆炸”<em>产生</em>，但<em>绝不被接受为操作数</em>。任何接收无穷操作数的算术或超越运算，都在上下文层以 <code>FpError::InfiniteInput</code> 拒绝（在便捷层 panic）。这让 <code>dashu-cmplx</code> 与 <code>dashu-float</code> 保持一致，并且内部统一：没有任何运算会把无穷折叠进结果后又去消费它。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>产生 <code>+∞ + i·0</code>（有限输入）</th><th>被拒绝（无穷操作数）</th></tr>
+</thead>
+<tbody>
+<tr><td><code>1/0</code>、有限非零的 <code>z/0</code></td><td><code>z·∞</code>、<code>∞·z</code>、<code>∞·∞</code>、<code>0·∞</code></td></tr>
+<tr><td><code>exp(+∞ + i·0)</code>（以及 <code>exp(-∞ + i·0) = 0</code>）</td><td><code>z/∞</code>、<code>∞/z</code>、<code>∞/∞</code></td></tr>
+<tr><td><code>log(0) = -∞ + i·0</code></td><td><code>inv(∞)</code>、<code>log(∞)</code>、<code>sqrt(∞)</code></td></tr>
+<tr><td>上溢饱和</td><td><code>z ± ∞</code>、<code>∞ ± z</code></td></tr>
+</tbody>
+</table>
+</div>
+<p><code>proj</code> 是唯一一个<em>接收</em>无穷值并返回结果的函数：它把任何部分为无穷的 <code>CBig</code> 投影为 <code>+∞ + i·0</code>（虚部零保持原始虚部的符号），按 C99 Annex G §G.5.3。<code>0/0</code> 为 <code>FpError::Indeterminate</code>。</p>
 <h2 id="辅助类型"><a class="header" href="#辅助类型">辅助类型</a></h2>
 <p>除了数值类型之外，各 crate 中还用到几种辅助类型：<strong>dashu-base</strong> 中的 <code>Sign</code> 和 <code>Approximation</code>，<strong>dashu-float</strong> 中的 <code>ConstCache</code> 和 <code>FpResult</code>，以及 <strong>dashu-cmplx</strong> 中的 <code>CfpResult</code>。</p>
 <h3 id="sign-1"><a class="header" href="#sign-1">Sign</a></h3>

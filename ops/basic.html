@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-75fbb288.js";
+            window.path_to_searchindex_js = "../searchindex-9a40e853.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-cf5e5045.js"></script>
+        <script src="../toc-670d7cd7.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -193,11 +193,24 @@ let e = 2 * &amp;b - 1; // 与基本类型自然混用
 assert_eq!(e, IBig::from(-0x21ff));
 <span class="boring">}</span></code></pre>
 <h2 id="浮点算术"><a class="header" href="#浮点算术">浮点算术</a></h2>
-<p><code>FBig</code>/<code>DBig</code> 支持<strong>相同基数和舍入模式</strong>的值之间的 <code>+</code>、<code>-</code>、<code>*</code>、<code>/</code>（混合基数是设计上的编译错误）。结果的精度为 <code>max(lhs.precision, rhs.precision)</code>，每次运算通过<a href="./exp_log.html">指数与对数</a>中所述的两层 API 报告其不精确性。无穷值是终态：<code>1/0</code> 和 <code>ln(0)</code> 产生 <code>±∞</code>，但将无穷值再次送入算术运算则是错误（<code>FpError::InfiniteInput</code>）。</p>
+<p><code>FBig</code>/<code>DBig</code> 支持<strong>相同基数和舍入模式</strong>的值之间的 <code>+</code>、<code>-</code>、<code>*</code>、<code>/</code>（混合基数是设计上的编译错误）。结果的精度为 <code>max(lhs.precision, rhs.precision)</code>，每次运算通过<a href="./pow_exp_log.html">幂、指数和对数</a>中所述的两层 API 报告其不精确性。无穷值是终态：<code>1/0</code> 和 <code>ln(0)</code> 产生 <code>±∞</code>，但将无穷值再次送入算术运算则是错误（<code>FpError::InfiniteInput</code>）。</p>
+<p>除了四种域运算之外，浮点数还可以用 <code>trunc()</code>、<code>ceil()</code>、<code>floor()</code>、<code>round()</code>（最近舍入，平局时远离零）和 <code>fract()</code>（小数部分）来分解和舍入；<code>split_at_point()</code> 一次返回 <code>(整数部分, 小数部分)</code> 两半，<code>quantize(exp)</code> 则舍入到 <code>BASE^exp</code> 的最近倍数（dashu 对 Python <code>Decimal.quantize</code> 的对应实现，返回舍入方向）。这些方法都会将结果精度调整为剩余的数位，因此对存储的数位而言结果精确。最后一位的单位是 <code>ulp()</code>，其廉价下界 <code>ulp_lb()</code> 可作为迭代算法中的可忽略性阈值。</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use core::str::FromStr;
+use dashu::float::DBig;
+
+let a = DBig::from_str("1.234")?;
+assert_eq!(a.round().to_string(), "1");
+assert_eq!(a.fract().to_string(), "0.234");
+let (int, frac) = a.clone().split_at_point();
+assert_eq!(int.to_string(), "1");
+assert_eq!(frac.to_string(), "0.234");
+<span class="boring">}</span></code></pre>
 <h2 id="有理数算术"><a class="header" href="#有理数算术">有理数算术</a></h2>
-<p><code>RBig</code> 支持 <code>+</code>、<code>-</code>、<code>*</code>、<code>/</code>。除以零会 panic。<code>Relaxed</code> 执行相同的运算但不自动约分到最简形式（在连续运算链中更快）；需要时调用 <code>canonicalize()</code> 进行约分。</p>
+<p><code>RBig</code> 支持 <code>+</code>、<code>-</code>、<code>*</code>、<code>/</code>。除以零会 panic。<code>Relaxed</code> 执行相同的运算但不自动约分到最简形式（在连续运算链中更快）；需要时调用 <code>canonicalize()</code> 进行约分。<code>RBig</code> 还提供 <code>fract()</code>（小数部分）、<code>is_int()</code>（判断值是否为整数）以及 <code>relax()</code>——即 <code>as_relaxed()</code>（见<a href="../convert.html">类型转换</a>）的消费变体，无需复制即可将值交给 <code>Relaxed</code>。</p>
 <h2 id="复数算术"><a class="header" href="#复数算术">复数算术</a></h2>
-<p><code>CBig</code> 支持域运算 <code>+</code>、<code>-</code>、<code>*</code>、<code>/</code>，以及 <code>sqr</code>（平方）和 <code>inv</code>（乘法逆）。还可以用实数 <code>FBig</code> 与 <code>CBig</code> 进行混合类型的乘法和除法。乘法和除法使用 Smith 方法并配合保护位和重新舍入，提供与 <code>dashu-float</code> 超越函数相同的近似正确舍入保证。</p>
+<p><code>CBig</code> 支持域运算 <code>+</code>、<code>-</code>、<code>*</code>、<code>/</code>，以及 <code>sqr</code>（平方）和 <code>inv</code>（乘法逆）。还可以用实数 <code>FBig</code> 与 <code>CBig</code> 进行混合类型的乘法和除法。乘法和除法使用 Smith 方法并配合保护位和重新舍入，提供与 <code>dashu-float</code> 超越函数相同的近似正确舍入保证。<code>conj()</code> 求共轭，<code>mul_i(negative)</code> 乘以 <code>+i</code> 或 <code>-i</code>——一种精确旋转，交换实部与虚部。分量可通过 <code>re()</code> / <code>im()</code> 以原始表示（借用 <code>&amp;Repr</code>）访问，或通过 <code>into_parts()</code> 获得拥有的 <code>FBig</code>（见<a href="../construct.html">构造与析构</a>）。</p>
 <pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use dashu::complex::CBig;
@@ -229,7 +242,7 @@ let summed: DBig = vals.iter().sum();                             // 1e-20 — S
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../ops/exp_log.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../ops/pow_exp_log.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -243,7 +256,7 @@ let summed: DBig = vals.iter().sum();                             // 1e-20 — S
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../ops/exp_log.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../ops/pow_exp_log.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

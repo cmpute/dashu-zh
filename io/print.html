@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-75fbb288.js";
+            window.path_to_searchindex_js = "../searchindex-9a40e853.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-cf5e5045.js"></script>
+        <script src="../toc-670d7cd7.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -225,14 +225,14 @@ use dashu::rational::RBig;
 assert_eq!(format!("{}", RBig::from_str("22/7")?), "22/7");
 assert_eq!(format!("{}", RBig::from_str("5/1")?), "5");
 <span class="boring">}</span></code></pre>
-<p>对于位置（十进制）展开，请使用 <code>in_expanded()</code>。<code>{:.N}</code> 打印恰好 <code>N</code> 位小数；<code>#</code> 标志会检测循环节并用括号括起：</p>
+<p>对于位置（十进制）展开，请使用 <code>in_expanded(10)</code>。<code>{:.N}</code> 打印恰好 <code>N</code> 位小数；<code>#</code> 标志会检测循环节并用括号括起：</p>
 <pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use dashu::rational::RBig;
 
 let x = RBig::from_parts(1.into(), 3u8.into());
-assert_eq!(format!("{:.4}", x.in_expanded()), "0.3333");
-assert_eq!(format!("{:#}", x.in_expanded()), "0.(3)");
+assert_eq!(format!("{:.4}", x.in_expanded(10)), "0.3333");
+assert_eq!(format!("{:#}", x.in_expanded(10)), "0.(3)");
 <span class="boring">}</span></code></pre>
 <h2 id="复数格式化"><a class="header" href="#复数格式化">复数格式化</a></h2>
 <p><code>CBig</code> 的 <code>Display</code> 使用代数 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">bi</span></span></span></span> 记法：虚部项始终带有显式符号，系数为 1 时省略（<code>i</code> 而非 <code>1i</code>），虚部为零时省略。</p>

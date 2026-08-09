@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-75fbb288.js";
+            window.path_to_searchindex_js = "../searchindex-9a40e853.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-cf5e5045.js"></script>
+        <script src="../toc-670d7cd7.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -197,7 +197,24 @@ assert_eq!(UBig::from_le_bytes(&amp;bytes), n);
 <h2 id="使用-serde-序列化"><a class="header" href="#使用-serde-序列化">使用 <code>serde</code> 序列化</a></h2>
 <p>启用 <code>serde</code> 特性后，每个数值类型都实现 <code>Serialize</code> / <code>Deserialize</code>。人类可读形式（当 <code>is_human_readable()</code> 为 <code>true</code> 时）为字符串，便于在 JSON/TOML 中使用；否则使用紧凑的二进制形式。仅二进制形式的布局受 semver 保护。</p>
 <h2 id="使用-rkyv-序列化"><a class="header" href="#使用-rkyv-序列化">使用 <code>rkyv</code> 序列化</a></h2>
-<p>启用 <code>rkyv</code> 特性后，整数类型支持零拷贝（反）序列化——在同架构场景下速度最快，代价是布局的可移植性较低。</p>
+<p>启用 <code>rkyv</code> 特性后（rkyv <strong>0.7</strong>；rkyv <strong>0.8</strong> 用 <code>rkyv_v08</code>），整数、有理数、浮点和复数类型支持零拷贝（反）序列化。大整数以<strong>原生 word 表示</strong>（<code>ArchivedVec&lt;Word&gt;</code>，<code>IBig</code> 附带符号位）归档，因此 <code>rkyv::archived_root</code> 能原地得到大整数的 word，任何路径都没有字节转换——这是同架构下最快的编码方式，代价是布局依赖于目标机的 <code>Word</code> 宽度和字节序。具体而言：</p>
+<ul>
+<li>
+<p>两个 rkyv 版本是<strong>互斥的替代方案</strong>：<code>rkyv_v07</code> 和 <code>rkyv_v08</code> 不能同时启用（两者的 derive 生成类型名冲突）。同时启用（如 <code>--all-features</code>）时以 0.7 为准。rkyv 0.8 需要 Rust ≥ 1.81（见 <a href="./faq.html#msrv-与特性策略">MSRV 策略</a>），且被排除在 1.68 的 MSRV 构建之外；其归档默认以小端存储多字节 word。</p>
+</li>
+<li>
+<p>归档<strong>不能跨 32/64 位目标</strong>（<code>Word</code> 宽度不同），也不能跨字节序不同的机器移植。</p>
+</li>
+<li>
+<p>rkyv 本身不保证跨版本归档兼容，且 <code>size_16/32/64</code>（偏移宽度）feature 在两端必须一致。</p>
+</li>
+</ul>
+<p>需要稳定、可移植的编码时，请使用上面的字节层：<code>to_le_bytes</code>/<code>to_be_bytes</code> 转换（显式、布局稳定）或 <code>serde</code> 的二进制形式。它们适合需要跨机器或跨 rkyv 版本保存的数据；<code>rkyv</code> 适合「原地读取归档数据」（如内存映射文件）比可移植性更重要的场景。</p>
+<h2 id="序列化缓存包装类型"><a class="header" href="#序列化缓存包装类型">序列化缓存包装类型</a></h2>
+<p><code>CachedFBig</code> / <code>CachedCBig</code> 不实现序列化 trait（serde、rkyv 或任何其他第三方 trait）——缓存类型有意只镜像数值 API。请先转换为普通值再序列化：</p>
+<pre><code class="language-rust ignore">let f = cached.as_fbig();       // 或拥有式 `into_fbig()`
+serialize(&amp;f);                  // 例如 serde 的 `to_string` / rkyv 的 `to_bytes`</code></pre>
+<p>（<code>CachedCBig</code> 有对应的 <code>as_cbig()</code> / <code>into_cbig()</code>。）</p>
 
                     </main>
 
