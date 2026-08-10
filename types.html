@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9a40e853.js";
+            window.path_to_searchindex_js = "searchindex-df1b3672.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-670d7cd7.js"></script>
@@ -236,7 +236,7 @@
 <h3 id="constcache"><a class="header" href="#constcache">ConstCache</a></h3>
 <p><code>dashu::float::ConstCache</code> 保存了数学常数 π、ln2 和 ln10 的精确二分裂（binary-splitting）状态，因此在不断提高精度的情况下重复调用超越函数时，可以<em>扩展</em>此前的工作，而不是从头重新计算。它是一个由大整数组成的普通结构体——与基数无关、<code>Send</code> + <code>Sync</code>——单个缓存即可服务于任意基数。<code>FBig</code> 和 <code>Context</code> 本身保持 <code>Copy</code> 且不携带任何缓存；该状态存放在独立的 <a href="./cached.html"><code>CachedFBig</code></a> 包装类型中（作为 <code>Rc&lt;RefCell&lt;ConstCache&gt;&gt;</code>），你也可以直接驱动一个裸的 <code>ConstCache</code>。</p>
 <h3 id="fpresult-和-cfpresult"><a class="header" href="#fpresult-和-cfpresult">FpResult 和 CfpResult</a></h3>
-<p>上下文层的不精确运算返回的是一个结果类型，而非裸值：<code>dashu::float::FpResult&lt;T&gt; = Result&lt;Rounded&lt;T&gt;, FpError&gt;</code>，其中 <code>Rounded&lt;T&gt;</code> 是携带 <code>Rounding</code> 标志的 <a href="#approximation"><code>Approximation</code></a>。复数的对应类型是 <code>dashu::complex::CfpResult</code>（<code>Result&lt;CRounded&lt;CBig&gt;, FpError&gt;</code>），其 <code>CRounded</code> 为每个坐标轴各携带一个 <code>Rounding</code> 标志。<code>FpError</code> 用于报告运算为何无法产生一个有限的、正确舍入的值：<code>Overflow</code>/<code>Underflow</code>、<code>Indeterminate</code>（例如 <code>0/0</code>）、<code>OutOfDomain</code> 以及 <code>InfiniteInput</code>。</p>
+<p>上下文层的不精确运算返回的是一个结果类型，而非裸值：<code>dashu::float::FpResult&lt;T&gt; = Result&lt;Rounded&lt;T&gt;, FpError&gt;</code>，其中 <code>Rounded&lt;T&gt;</code> 是携带 <code>Rounding</code> 标志的 <a href="#approximation"><code>Approximation</code></a>。复数的对应类型是 <code>dashu::complex::CfpResult</code>（<code>Result&lt;CRounded&lt;CBig&gt;, FpError&gt;</code>），其 <code>CRounded</code> 为每个坐标轴各携带一个 <code>Rounding</code> 标志。<code>FpError</code> 用于报告运算为何无法产生一个有限的、正确舍入的值：<code>Overflow</code>/<code>Underflow</code>、<code>Indeterminate</code>（例如 <code>0/0</code>）、<code>OutOfDomain</code>、<code>InfiniteInput</code> 以及 <code>ZivRetryLimitExceeded</code>（超越函数未能认证其舍入——只有当误差半径估计有误时才可能触发）。</p>
 <h2 id="两层-api"><a class="header" href="#两层-api">两层 API</a></h2>
 <p>不精确运算——除法、超越函数，以及任何可能上溢、下溢或超出定义域的运算——都以两层形式提供：</p>
 <ul>
@@ -244,6 +244,7 @@
 <li><strong>便捷层（Convenience layer）</strong>——<code>FBig</code>/<code>CBig</code> 上的固有方法和运算符（<code>.exp()</code>、<code>.ln()</code>、<code>+</code>、<code>*</code>……）会解包为裸值：遇到 <code>Indeterminate</code>/<code>OutOfDomain</code>/<code>InfiniteInput</code> 时 panic，遇到上溢/下溢则饱和为 <code>±∞</code>/<code>±0</code>。</li>
 </ul>
 <p>日常代码请使用便捷层；当你需要舍入方向或显式的错误处理时，再下沉到上下文层。</p>
+<p>核心算术中你能遇到的所有 panic 都是可追踪的：<code>dashu-int</code> 和 <code>dashu-float</code> 中所有主动的 <code>panic!</code> 消息都定义在各 crate 唯一的 <code>error.rs</code> 中——<a href="https://github.com/cmpute/dashu/blob/master/integer/src/error.rs"><code>dashu-int</code> 的 <code>error.rs</code></a> 与 <a href="https://github.com/cmpute/dashu/blob/master/float/src/error.rs"><code>dashu-float</code> 的 <code>error.rs</code></a>——因此你看到的任何消息都可以在同一个地方查找到（并上报）。</p>
 
                     </main>
 

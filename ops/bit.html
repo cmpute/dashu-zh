@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-9a40e853.js";
+            window.path_to_searchindex_js = "../searchindex-df1b3672.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-670d7cd7.js"></script>
@@ -181,7 +181,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<p><code>UBig</code> 和 <code>IBig</code> 支持按位运算符 <code>&amp;</code>（与）、<code>|</code>（或）、<code>^</code>（异或）和 <code>!</code>（取反）。在 <code>UBig</code> 上，<code>!</code> 是<em>无限宽度</em>的补码——最高置位以上的每一位都被视为 <code>1</code>，因此 <code>!n</code> 通常是一个非常大的数。在 <code>IBig</code> 上，<code>!</code> 遵循二进制补码规则。</p>
+<p><code>UBig</code> 和 <code>IBig</code> 支持按位运算符 <code>&amp;</code>（与）、<code>|</code>（或）和 <code>^</code>（异或）。一元取反 <code>!</code> <strong>仅在 <code>IBig</code> 上实现</strong>，遵循二进制补码规则（<code>!x = -x - 1</code>）；<code>UBig</code> 未实现 <code>!</code>。</p>
 <pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use dashu::integer::UBig;

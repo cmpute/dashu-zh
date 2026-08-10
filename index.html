@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9a40e853.js";
+            window.path_to_searchindex_js = "searchindex-df1b3672.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-670d7cd7.js"></script>
@@ -191,7 +191,7 @@
 <p>本指南是 <a href="https://docs.rs/dashu/latest/dashu/"><code>dashu</code> API 文档</a>的配套读物，以更精炼的方式概述 <code>dashu</code> 提供的全部功能，并附有示例。</p>
 <p>请从左侧的章节列表中选择，跳转到各个主题。</p>
 <blockquote>
-<p>构建自提交 <code>v0.6.0-rc.4</code> — dashu v0.6.0-rc.4。</p>
+<p>构建自提交 <code>v0.6.0</code> — dashu v0.6.0。</p>
 </blockquote>
 <h2 id="设计理念与特性"><a class="header" href="#设计理念与特性">设计理念与特性</a></h2>
 <p><code>dashu</code> 希望成为你在以下场景中的首选库：编写涉及任意精度数值的算法，或者构建依赖任意精度数值的 Rust 工具。它完全用 Rust 从头构建，提供友好且符合 Rust 惯例的 API。对于高精度的计算负载，它也许不是最快的库，但它的设计目标是让你在绝大多数情况下几乎察觉不到它的存在。</p>
@@ -218,8 +218,8 @@
 <li>对于已发布稳定版本（达到 v1.0）的依赖，我们使用 <code>xxx_vyy</code> 表示其各个主版本，并用 <code>xxx</code> 指向其中某一个主版本。更改 <code>xxx</code> 所指向的版本在 <code>dashu</code> 中视为破坏性变更（需要提升主版本号）。因此，当你启用这些稳定特性来依赖 <code>dashu</code> 时，<code>dashu</code> 后续为更新版本新增的实现不会影响你的代码。</li>
 <li>对于仅有不稳定版本（v1.0 之前）的依赖，我们始终使用 <code>xxx_vyy</code> 表示每个主版本，同时提供 <code>xxx</code> 特性作为<strong>最新</strong>版本的别名。因此，当你启用这些不稳定特性来依赖 <code>dashu</code> 时，这些依赖的升级可能导致你的代码编译失败。但我们仍不将其视为破坏性变更，因为不稳定的依赖默认不会被启用。如果你想避免由此引发的破坏性变更，请显式指定所使用的版本。</li>
 </ul>
-<p><strong>示例</strong>：在 <code>dashu-float</code> 中，对 diesel 库 v1 的支持放在名为 <code>diesel</code> 的特性下，对 v2 的支持放在名为 <code>diesel2</code> 的特性下。另一方面，<code>rand</code> crate 尚未发布稳定版，即便它已被广泛使用。因此，对 <code>rand</code> v0.7 和 v0.8 的支持分别放在名为 <code>rand_v07</code> 和 <code>rand_v08</code> 的特性下，而特性名 <code>rand</code> 当前指向 <code>rand_v08</code>。</p>
-<p>在你的 Cargo.toml 中，如果你启用的是 <code>dashu/diesel</code>、<code>dashu/diesel2</code> 或 <code>dashu/rand_v07</code>，那么将来 <code>dashu</code> 新增对 diesel v3 或 rand v0.9 的支持时，也不会带来任何破坏性变更的风险。但如果你启用的是 <code>rand</code> 而非 <code>rand_v08</code>，则存在风险，因为将来 <code>rand</code> 可能会指向 <code>rand_v09</code>。</p>
+<p><strong>示例</strong>：在 <code>dashu-float</code> 中，对 diesel 库 v1 的支持放在名为 <code>diesel_v1</code> 的特性下，对 v2 的支持放在名为 <code>diesel_v2</code> 的特性下（未编号的 <code>diesel</code> 特性指向 v2）。另一方面，<code>rand</code> crate 尚未发布稳定版，即便它已被广泛使用。因此，对 <code>rand</code> v0.8、v0.9 和 v0.10 的支持分别放在名为 <code>rand_v08</code>、<code>rand_v09</code> 和 <code>rand_v010</code> 的特性下，而特性名 <code>rand</code> 当前指向 <code>rand_v010</code>。</p>
+<p>在你的 Cargo.toml 中，如果你启用的是 <code>dashu/diesel_v1</code>、<code>dashu/diesel_v2</code> 或 <code>dashu/rand_v08</code>，那么将来 <code>dashu</code> 新增对 diesel v3 或 rand v0.11 的支持时，也不会带来任何破坏性变更的风险。但如果你启用的是 <code>dashu/rand</code> 而非 <code>dashu/rand_v010</code>，则存在风险，因为将来 <code>rand</code> 可能会指向更新的版本。</p>
 <h2 id="许可证"><a class="header" href="#许可证">许可证</a></h2>
 <p>根据以下任一协议授权，由你自行选择：<a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a> 或 <a href="https://opensource.org/licenses/MIT">MIT license</a>。</p>
 

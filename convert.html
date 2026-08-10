@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9a40e853.js";
+            window.path_to_searchindex_js = "searchindex-df1b3672.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-670d7cd7.js"></script>
@@ -336,7 +336,7 @@ assert_eq!(f32::try_from(big), Err(ConversionError::OutOfBounds));
 <span class="boring">}</span></code></pre>
 <h3 id="转换到-rbig"><a class="header" href="#转换到-rbig">转换到 RBig</a></h3>
 <p>当为 <code>dashu-ratio</code> 启用可选的 <code>dashu-float</code> 特性时，<code>TryFrom&lt;FBig&gt; for RBig</code> 仅在浮点数恰好可以表示为有理数时才成功，而 <code>RBig::to_float()</code> 是另一方向的舍入感知路径。</p>
-<p>要用一个<em>简单</em>有理数（容差内分子/分母最小的）近似浮点数，请使用 <code>simplest_from_f32</code> / <code>simplest_from_f64</code>，或在 <code>FBig</code>/<code>DBig</code> 上使用区间查询 <code>simplest_in</code>、<code>nearest_in</code>、<code>next_up</code> 和 <code>next_down</code>——这些方法将浮点数自身的舍入区间作为搜索范围。<code>is_simpler_than(other)</code> 则直接按这些查询所优化的“简单性”排序来比较两个 <code>RBig</code>。</p>
+<p>要用一个<em>简单</em>有理数（容差内分子/分母最小的）近似浮点数，请使用 <code>simplest_from_f32</code> / <code>simplest_from_f64</code>——它们在浮点数自身的舍入区间内搜索。在 <code>RBig</code> 上，<code>simplest_in(lower, upper)</code> 在显式区间内寻找最简有理数，而 <code>nearest(&amp;limit)</code> / <code>next_up(&amp;limit)</code> / <code>next_down(&amp;limit)</code> 寻找与某值最接近、且分母不超过 <code>limit</code> 的有理数（Farey 序列邻居）。<code>is_simpler_than(other)</code> 则直接按相同的“简单性”排序来比较两个 <code>RBig</code>。</p>
 <hr>
 <ol class="footnote-definition">
 <li id="footnote-a">

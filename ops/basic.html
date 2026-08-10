@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-9a40e853.js";
+            window.path_to_searchindex_js = "../searchindex-df1b3672.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-670d7cd7.js"></script>
@@ -210,7 +210,7 @@ assert_eq!(frac.to_string(), "0.234");
 <h2 id="有理数算术"><a class="header" href="#有理数算术">有理数算术</a></h2>
 <p><code>RBig</code> 支持 <code>+</code>、<code>-</code>、<code>*</code>、<code>/</code>。除以零会 panic。<code>Relaxed</code> 执行相同的运算但不自动约分到最简形式（在连续运算链中更快）；需要时调用 <code>canonicalize()</code> 进行约分。<code>RBig</code> 还提供 <code>fract()</code>（小数部分）、<code>is_int()</code>（判断值是否为整数）以及 <code>relax()</code>——即 <code>as_relaxed()</code>（见<a href="../convert.html">类型转换</a>）的消费变体，无需复制即可将值交给 <code>Relaxed</code>。</p>
 <h2 id="复数算术"><a class="header" href="#复数算术">复数算术</a></h2>
-<p><code>CBig</code> 支持域运算 <code>+</code>、<code>-</code>、<code>*</code>、<code>/</code>，以及 <code>sqr</code>（平方）和 <code>inv</code>（乘法逆）。还可以用实数 <code>FBig</code> 与 <code>CBig</code> 进行混合类型的乘法和除法。乘法和除法使用 Smith 方法并配合保护位和重新舍入，提供与 <code>dashu-float</code> 超越函数相同的近似正确舍入保证。<code>conj()</code> 求共轭，<code>mul_i(negative)</code> 乘以 <code>+i</code> 或 <code>-i</code>——一种精确旋转，交换实部与虚部。分量可通过 <code>re()</code> / <code>im()</code> 以原始表示（借用 <code>&amp;Repr</code>）访问，或通过 <code>into_parts()</code> 获得拥有的 <code>FBig</code>（见<a href="../construct.html">构造与析构</a>）。</p>
+<p><code>CBig</code> 支持域运算 <code>+</code>、<code>-</code>、<code>*</code>、<code>/</code>，以及 <code>sqr</code>（平方）和 <code>inv</code>（乘法逆）。还可以用实数 <code>FBig</code> 与 <code>CBig</code> 进行混合类型的乘法和除法。复数乘法与除法通过保护位和重新舍入实现近似正确舍入（除法使用 Smith 的防溢出方法）。<code>conj()</code> 求共轭，<code>mul_i(negative)</code> 乘以 <code>+i</code> 或 <code>-i</code>——一种精确旋转，交换实部与虚部。分量可通过 <code>re()</code> / <code>im()</code> 以原始表示（借用 <code>&amp;Repr</code>）访问，或通过 <code>into_parts()</code> 获得拥有的 <code>FBig</code>（见<a href="../construct.html">构造与析构</a>）。</p>
 <pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use dashu::complex::CBig;
